@@ -1,0 +1,708 @@
+<title>FUTURO · Descubre tu ruta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Orientación vocacional gratis para prepa en México. Dos tests, tu top 3 de carreras con % de match, universidades reales, becas oficiales y un audio de tu yo del 2045.">
+<meta property="og:title" content="FUTURO · Descubre tu ruta">
+<meta property="og:description" content="No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser. Gratis, en unos 5 minutos.">
+<meta name="theme-color" content="#FBFBF8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Syne:wght@700;800&display=swap">
+<style>
+/* Layout: "la ruta". Columna editorial con un riel amarillo a la izquierda (índice + año) que viaja del 2026 al 2045;
+   en cada sección la línea se vuelve el subrayado de una palabra. Una sola pantalla oscura: tu yo del 2045.
+   Tema único y claro a propósito (ADN de FUTURO): todos los colores están definidos aquí. */
+:root{
+  color-scheme:light;
+  --bg:#FBFBF8; --surface:#FFFFFF; --ink:#111827; --muted:#5B6270; --line:rgba(17,24,39,.09); --line-2:rgba(17,24,39,.16);
+  --accent:#2F5BFF; --on-accent:#FFFFFF; --mark:#FFD23F; --sky:#7FA6FF; --lila:#B9A8FF;
+  --night:#0E1018; --night-2:#161925; --night-ink:#F2F2EE; --night-muted:#A2A8B4; --night-line:rgba(255,255,255,.1);
+  --display:"Syne","Arial Black",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gutter:max(20px, env(safe-area-inset-left,0px));
+  --gutter-r:max(20px, env(safe-area-inset-right,0px));
+  --rail:0px;
+}
+@media (min-width:900px){:root{--gutter:max(48px, env(safe-area-inset-left,0px));--gutter-r:max(48px, env(safe-area-inset-right,0px))}}
+@media (min-width:1200px){:root{--gutter:max(80px, env(safe-area-inset-left,0px));--gutter-r:max(80px, env(safe-area-inset-right,0px))}}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.night :focus-visible{outline-color:var(--sky)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:calc(12px + env(safe-area-inset-top,0px));z-index:100;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font-weight:600;transform:translateY(-200%);transition:transform .2s var(--ease)}
+.skip:focus{transform:none}
+
+.wrap{max-width:1280px;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+
+/* Tipos */
+.label{font:600 12px/1.3 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.label b{color:var(--accent);font-weight:600}
+.night .label{color:var(--night-muted)} .night .label b{color:var(--sky)}
+.h2{font-weight:800;font-size:clamp(34px,7.4vw,64px);line-height:1;letter-spacing:-.015em}
+.lead{font-size:clamp(18px,2.2vw,20px);line-height:1.55;max-width:56ch}
+.muted{color:var(--muted)}
+.src{font:600 12px/1.4 var(--body);letter-spacing:.06em;color:var(--muted)}
+.src a{text-underline-offset:3px}
+
+/* Subrayado amarillo: la línea que llega */
+.u{background-image:linear-gradient(var(--mark),var(--mark));background-repeat:no-repeat;background-position:0 86%;background-size:100% .28em;padding:0 .04em;transition:background-size .4s var(--ease) .12s}
+.js :is(.pre,.hero:not(.in)) .u{background-size:0% .28em}
+
+/* Reveal por línea con máscara */
+.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.ln>span{display:inline-block;transition:transform .4s var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+.js :is(.pre,.hero:not(.in)) .ln>span{transform:translateY(108%)}
+.fade{transition:opacity .4s var(--ease),transform .4s var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+.js :is(.pre,.hero:not(.in)) .fade{opacity:0;transform:translateY(16px)}
+
+/* Botones */
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;font:600 16px/1 var(--body);text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background-color .2s var(--ease),border-color .2s var(--ease),transform .16s var(--ease)}
+.btn .arr{transition:transform .24s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:#2049E6}
+.btn-ghost{color:var(--ink);border-color:var(--line-2);background:transparent}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{min-height:44px;padding:0 16px;font-size:15px}
+@media (max-width:420px){.nav .btn-sm .arr{display:none}.nav .btn-sm{padding:0 14px;font-size:14px}.nav .wrap{gap:10px}.logo{font-size:19px}.year{margin-left:6px}}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s var(--ease)}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
+.logo{display:inline-grid;gap:5px;text-decoration:none;font:800 22px/1 var(--display);letter-spacing:.01em;color:var(--ink);padding-block:6px}
+.logo i{display:block;height:4px;background:var(--mark);width:100%}
+.year{display:flex;align-items:baseline;gap:8px;margin-right:auto;margin-left:12px;font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.year strong{font:800 15px/1 var(--display);letter-spacing:0;color:var(--ink);font-variant-numeric:tabular-nums;min-width:4ch}
+@media (max-width:420px){.year span{display:none}}
+
+/* Riel (desktop): la ruta del 2026 al 2045. Corre 32px a la izquierda del contenido. */
+.rail{display:none}
+.idx::before{content:"";width:28px;height:3px;background:var(--mark);transform-origin:left;transition:transform .4s var(--ease)}
+.idx{display:flex;align-items:center;gap:12px;position:relative}
+.js :is(.pre,.hero:not(.in)) .idx::before{transform:scaleX(0)}
+@media (min-width:1100px){
+  .rail{display:block;position:fixed;top:0;bottom:0;width:3px;z-index:40;pointer-events:none;left:calc(max(0px,(100vw - 1280px) / 2) + var(--gutter) - 32px)}
+  .rail::before{content:"";position:absolute;inset:0;background:var(--line)}
+  .night-on .rail::before{background:var(--night-line)}
+  .rail i{position:absolute;inset:0;background:var(--mark);transform-origin:top;transform:scaleY(var(--p,0))}
+  .idx::before{position:absolute;right:calc(100% + 10px);width:19px}
+}
+
+/* Sección base */
+.sec{padding-block:clamp(72px,11vw,128px)}
+.sec-head{display:grid;gap:20px;margin-bottom:clamp(36px,6vw,64px)}
+
+/* HERO */
+.hero{position:relative;overflow-x:clip;padding-block:clamp(32px,6vw,72px) clamp(64px,9vw,112px)}
+.hero-grid{display:grid;gap:48px;align-items:center}
+@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:56px}}
+.hero-copy{display:grid;gap:24px;min-width:0}
+.pre-h{font:400 clamp(19px,2.3vw,24px)/1.3 var(--body);color:var(--muted)}
+.h1{font-weight:800;font-size:clamp(35px,10.2vw,86px);line-height:.98;letter-spacing:-.02em}
+@media (min-width:960px){.h1{font-size:clamp(56px,6vw,86px)}}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:560px}
+@media (min-width:560px){.meta{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.meta div{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:12px 14px;display:grid;gap:4px}
+.meta span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.meta strong{font:700 18px/1.15 var(--display)}
+
+.stage{position:relative;justify-self:center;width:min(100%,420px);padding:28px 8px}
+.aura{position:absolute;inset:-12% -18% -8% -18%;pointer-events:none;filter:blur(64px);opacity:.5;z-index:0;
+  background:radial-gradient(circle at 38% 36%,var(--accent) 0 16%,transparent 46%),radial-gradient(circle at 66% 58%,var(--sky) 0 20%,transparent 52%),radial-gradient(circle at 40% 80%,var(--lila) 0 16%,transparent 46%),radial-gradient(circle at 78% 24%,var(--mark) 0 8%,transparent 30%)}
+.clip{position:relative;z-index:1;border-radius:24px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:#DCE3F5}
+.clip video,.clip img{width:100%;height:100%;object-fit:cover}
+.pill{display:inline-flex;align-items:center;min-height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font:600 14px/1 var(--body);white-space:nowrap}
+.float{position:absolute;z-index:2;transform:rotate(var(--r));animation:bob 6s var(--ease) infinite alternate;animation-delay:var(--d,0s)}
+@keyframes bob{to{translate:0 -6px}}
+.credit{position:relative;z-index:1;margin-top:12px;font:600 12px/1.4 var(--body);color:var(--muted)}
+
+/* 01 PROBLEMA */
+.stat{display:grid;gap:28px}
+.big{font:800 clamp(64px,17vw,200px)/.88 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.big small{font-size:.36em;letter-spacing:-.01em;color:var(--muted);font-weight:700}
+.dots{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,14px)}
+.dots i{width:clamp(22px,4.4vw,44px);aspect-ratio:1;border-radius:50%;border:2px solid var(--line-2);transition:background-color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);transition-delay:calc(var(--i) * 40ms)}
+.dots i.on{background:var(--accent);border-color:var(--accent)}
+.js :is(.pre,.hero:not(.in)) .dots i{transform:scale(.6)}
+.js :is(.pre,.hero:not(.in)) .dots i.on{background:transparent;border-color:var(--line-2)}
+.para-h{font:600 clamp(22px,3.4vw,38px)/1.25 var(--body);letter-spacing:-.01em;max-width:30ch}
+@media (min-width:960px){.stat{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:end;column-gap:64px}.stat .side{display:grid;gap:24px}}
+
+/* 02 CÓMO FUNCIONA */
+.steps{display:grid;gap:16px}
+@media (min-width:900px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.step{border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:24px;display:grid;gap:16px;align-content:start;min-width:0}
+.step .n{font:800 40px/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.step h3{font-weight:700;font-size:22px;line-height:1.15}
+.tag{display:inline-flex;align-self:start;justify-self:start;align-items:center;min-height:28px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.demo{border-top:1px solid var(--line);padding-top:16px;display:grid;gap:12px}
+.demo .q{font-size:15px;color:var(--muted)}
+.demo .qq{font:700 20px/1.15 var(--display)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{min-height:48px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);font:600 15px/1.1 var(--body);color:var(--ink);text-align:left;cursor:pointer;transition:background-color .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease),transform .16s var(--ease)}
+.opt:hover{border-color:var(--line-2)}
+.opt:active{transform:scale(.97)}
+.opt .k{flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:11px;color:var(--muted)}
+.opt[aria-checked="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.opt[aria-checked="true"] .k{border-color:rgba(255,255,255,.7);color:var(--on-accent)}
+.bars{display:grid;gap:12px}
+.bars div{display:grid;gap:6px;font-weight:600;font-size:15px}
+.track{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.track i{display:block;height:100%;width:var(--w);background:var(--accent);border-radius:inherit;transform-origin:left;transition:transform .4s var(--ease);transition-delay:calc(var(--i,0) * 70ms + .1s)}
+.track.soft i{background:var(--sky)}
+.js :is(.pre,.hero:not(.in)) .track i{transform:scaleX(0)}
+
+/* 03 BENTO */
+.bento{display:grid;gap:16px}
+@media (min-width:900px){.bento{grid-template-columns:repeat(12,minmax(0,1fr))}}
+.tile{border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:24px;display:grid;gap:16px;align-content:start;min-width:0}
+@media (min-width:900px){
+  .t-top{grid-column:span 6;grid-row:span 2}
+  .t-becas{grid-column:span 6}
+  .t-audio{grid-column:span 3}
+  .t-free{grid-column:span 3}
+  .t-unis{grid-column:1 / -1}
+}
+.t-top .pct{font:800 clamp(88px,14vw,150px)/.85 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.t-top .pct small{font-size:.42em;color:var(--accent)}
+.t-top .career{font:800 clamp(30px,4vw,44px)/1 var(--display);letter-spacing:-.01em}
+.t-top .track{height:10px}
+.rows{display:grid;border-top:1px solid var(--line)}
+.rows div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font:700 clamp(18px,2.2vw,22px)/1.15 var(--display)}
+.rows div span:first-child b{color:var(--accent);margin-right:8px;font-weight:800}
+.rows div span:last-child{font-variant-numeric:tabular-nums}
+.t-becas .word{font:800 clamp(40px,6vw,64px)/.95 var(--display);letter-spacing:-.02em}
+.t-audio{background:var(--night);color:var(--night-ink);border-color:var(--night);text-decoration:none;transition:transform .24s var(--ease)}
+.t-audio:hover{transform:translateY(-2px)}
+.t-audio .label{color:var(--night-muted)}
+.mini-wave{display:flex;align-items:center;gap:3px;height:56px}
+.mini-wave i{flex:1;background:var(--sky);border-radius:9px;height:var(--h)}
+.t-audio strong{font:700 22px/1.15 var(--display)}
+.t-audio .go{font-weight:600;color:var(--night-muted)}
+.t-free .word{font:800 clamp(40px,5vw,56px)/.95 var(--display);letter-spacing:-.02em}
+.unis-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
+.unis-head h3{font-weight:700;font-size:clamp(22px,3vw,30px);line-height:1.15}
+.unis{display:grid;gap:16px}
+@media (min-width:760px){.unis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.uni{display:grid;gap:12px;align-content:start;min-width:0}
+.uni figure{margin:0;display:grid;gap:8px}
+.uni .ph{border-radius:16px;overflow:hidden;aspect-ratio:4/3;max-width:100%;background:#E6E8EE}
+.uni .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s var(--ease)}
+.uni:hover .ph img{transform:scale(1.03)}
+.uni figcaption{font-size:12px;color:var(--muted)}
+.uni h4{margin:0;font:800 clamp(22px,2.4vw,26px)/1.1 var(--display);letter-spacing:-.01em}
+.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kv div{border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:grid;gap:4px;min-width:0;background:var(--bg)}
+.kv span{font:600 10.5px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kv strong{font:600 15px/1.2 var(--body);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tbd{color:var(--muted);font-weight:600}
+
+/* 04 · 2045 (único momento oscuro) */
+.night{background:var(--night);color:var(--night-ink);position:relative;overflow:hidden}
+.night .sec-head{margin-bottom:clamp(28px,5vw,48px)}
+.night .h2{color:var(--night-ink)}
+.night .u{background-image:linear-gradient(var(--mark),var(--mark))}
+.player{display:grid;gap:clamp(28px,4vw,40px)}
+.wave{display:flex;align-items:center;gap:clamp(2px,.5vw,5px);height:clamp(120px,20vw,200px)}
+.wave i{flex:1;min-width:2px;height:var(--h);border-radius:99px;background:var(--night-line);transition:background-color .12s linear 0s,transform .4s var(--ease) calc(var(--i) * 6ms)}
+.wave i.on{background:var(--sky)}
+.js :is(.pre,.hero:not(.in)) .wave i{transform:scaleY(.15)}
+.ctrl{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.play{width:72px;height:72px;border-radius:50%;border:0;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;cursor:pointer;flex:none;transition:transform .16s var(--ease),background-color .2s var(--ease)}
+.play:hover{background:#2049E6}
+.play:active{transform:scale(.95)}
+.play svg{width:26px;height:26px;fill:currentColor}
+.play .i-pause{display:none}
+.play[aria-pressed="true"] .i-play{display:none}
+.play[aria-pressed="true"] .i-pause{display:block}
+.time{font:600 14px/1 var(--body);color:var(--night-muted);font-variant-numeric:tabular-nums}
+.subs{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.subs li{font:600 clamp(24px,4.4vw,48px)/1.2 var(--body);letter-spacing:-.01em;color:var(--night-muted);transition:color .2s var(--ease)}
+.subs li.now{color:var(--night-ink)}
+.night .note{font-size:14px;color:var(--night-muted);max-width:60ch}
+
+/* 05 VIDEO */
+.vid-grid{display:grid;gap:40px;align-items:center}
+@media (min-width:900px){.vid-grid{grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:72px}}
+.phone{position:relative;border-radius:32px;overflow:hidden;aspect-ratio:9/16;max-width:100%;width:min(100%,380px);justify-self:center;background:var(--bg);border:1px solid var(--line)}
+.phone video{width:100%;height:100%;object-fit:cover}
+.vid-copy{display:grid;gap:20px;min-width:0}
+.chap{display:grid;border-top:1px solid var(--line);margin:0;padding:0;list-style:none}
+.chap li{border-bottom:1px solid var(--line)}
+.chap button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;width:100%;min-height:52px;padding:8px 0;font-weight:600;transition:color .16s var(--ease)}
+.chap button:hover{color:var(--accent)}
+.chap button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.chap button span{color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* 06 PRIVACIDAD */
+.seal{font:800 clamp(30px,6vw,68px)/1.02 var(--display);letter-spacing:-.02em;max-width:18ch}
+.privs{display:grid;gap:0;border-top:1px solid var(--line);margin-top:clamp(40px,6vw,64px)}
+@media (min-width:900px){.privs{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:32px}}
+.priv{display:grid;gap:8px;padding:24px 0;border-bottom:1px solid var(--line);align-content:start}
+.priv h3{font-weight:700;font-size:22px;line-height:1.15}
+
+/* 07 FAQ */
+.faq-grid{display:grid;gap:32px}
+@media (min-width:960px){.faq-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:64px}}
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;padding:12px 0;font:700 clamp(18px,2.2vw,21px)/1.25 var(--display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);position:relative;transition:transform .24s var(--ease),background-color .2s var(--ease)}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--ink);translate:-50% -50%}
+.faq summary .pm::after{rotate:90deg;transition:rotate .24s var(--ease)}
+.faq details[open] summary .pm::after{rotate:0deg}
+.faq .a{padding:0 0 20px;max-width:60ch;color:var(--muted)}
+.faq .a a{color:var(--ink);text-underline-offset:3px}
+
+/* CTA final: vidrio estriado sobre el aura */
+.final{padding-block:0 clamp(48px,8vw,96px)}
+.glass{position:relative;overflow:hidden;border-radius:32px;background:var(--bg);border:1px solid var(--line);padding:clamp(36px,7vw,88px) clamp(24px,6vw,72px)}
+.glass::before{content:"";position:absolute;inset:-30%;filter:blur(44px);opacity:.55;pointer-events:none;
+  background:radial-gradient(ellipse at 82% 40%,var(--accent),transparent 45%),radial-gradient(ellipse at 66% 80%,var(--sky),transparent 50%),radial-gradient(ellipse at 96% 96%,var(--mark),transparent 34%),radial-gradient(ellipse at 60% 10%,var(--lila),transparent 40%)}
+.glass::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,0) 0 26px,rgba(255,255,255,.34) 26px 27px,rgba(255,255,255,.1) 27px 52px);
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 70%);mask-image:linear-gradient(90deg,transparent 30%,#000 70%)}
+.glass>*{position:relative;z-index:1}
+.glass .inner{display:grid;gap:24px;max-width:640px}
+.glass .h2{font-size:clamp(34px,6.6vw,72px)}
+
+/* Footer */
+.foot{border-top:1px solid var(--line);padding-block:48px calc(40px + env(safe-area-inset-bottom,0px))}
+.foot-grid{display:grid;gap:32px}
+@media (min-width:900px){.foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:64px}}
+.foot .lema{font:700 20px/1.3 var(--display);max-width:26ch;margin-top:16px}
+.foot dl{margin:0;display:grid;gap:16px}
+.foot dt{margin-bottom:4px}
+.foot dd{margin:0;font-size:14px;color:var(--muted);max-width:70ch}
+.foot dd a{color:var(--ink);text-underline-offset:3px}
+.foot .links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:20px}
+.foot .links a{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-underline-offset:4px}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0ms!important}
+  .rail i{transform:scaleY(1)}
+}
+</style>
+
+<script>document.documentElement.lang="es-MX";document.documentElement.classList.add("js");setTimeout(function(){var h=document.querySelector(".hero");if(h)h.classList.add("in")},1500)</script>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="rail" aria-hidden="true"><i></i></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="FUTURO, inicio">FUTURO<i></i></a>
+    <p class="year" aria-hidden="true"><span>Tu ruta</span><strong id="year">2026</strong></p>
+    <a class="btn btn-ghost btn-sm" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="h-hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="label fade" style="--i:0"><b>Gratis</b> · Orientación vocacional para prepa</p>
+      <div>
+        <p class="pre-h fade" style="--i:1">No te decimos qué estudiar.</p>
+        <h1 class="h1" id="h-hero" style="margin-top:12px">
+          <span class="ln"><span style="--i:1">Te enseñamos</span></span>
+          <span class="ln"><span style="--i:2"><span class="u">quién</span> puedes</span></span>
+          <span class="ln"><span style="--i:3">llegar a ser.</span></span>
+        </h1>
+      </div>
+      <p class="lead fade" style="--i:4">Haz dos tests, conoce tu top 3 de carreras con universidades y becas reales, y escucha a tu yo del 2045 contándote su día.</p>
+      <div class="cta-row fade" style="--i:5">
+        <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#como">Ver cómo funciona</a>
+      </div>
+      <div class="meta fade" style="--i:6">
+        <div><span>Tests</span><strong>2</strong></div>
+        <div><span>Tiempo</span><strong>~5 min</strong></div>
+        <div><span>Precio</span><strong>Gratis</strong></div>
+        <div><span>Contraseñas</span><strong>Ninguna</strong></div>
+      </div>
+    </div>
+
+    <div class="stage fade" style="--i:3">
+      <div class="aura" aria-hidden="true"></div>
+      <div class="clip">
+        <video id="heroVid" muted loop playsinline preload="none" poster="assets/hero.webp" width="576" height="720" aria-label="Dos estudiantes platican en el patio de su escuela"></video>
+      </div>
+      <span class="pill float" style="--r:-4deg;top:6%;left:0;--d:-1s" aria-hidden="true">¿Social?</span>
+      <span class="pill float" style="--r:3deg;top:30%;right:0;--d:-3s" aria-hidden="true">¿Investigador?</span>
+      <span class="pill float" style="--r:2deg;bottom:24%;left:0;--d:-2s" aria-hidden="true">¿Creativo?</span>
+      <span class="pill float" style="--r:-3deg;bottom:9%;right:4%;--d:-4s" aria-hidden="true">¿Constructor?</span>
+      <p class="credit">Video: Pexels/Mixkit</p>
+    </div>
+  </div>
+</section>
+
+<!-- 01 PROBLEMA -->
+<section class="sec" id="problema" aria-labelledby="h-prob" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label idx"><b>01</b> · El problema</p>
+    </div>
+    <div class="stat">
+      <div>
+        <h2 class="big" id="h-prob"><span class="ln"><span>4 <small>de cada</small> 10</span></span></h2>
+      </div>
+      <div class="side">
+        <div class="dots" aria-hidden="true">
+          <i class="on" style="--i:0"></i><i class="on" style="--i:1"></i><i class="on" style="--i:2"></i><i class="on" style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i>
+        </div>
+        <p class="para-h fade">universitarios cambian de carrera o la dejan al inicio. Muchos eligieron <span class="u">sin conocerse</span>.</p>
+        <p class="src">Fuente: Milenio</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 CÓMO FUNCIONA -->
+<section class="sec" id="como" aria-labelledby="h-como" data-reveal style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label idx"><b>02</b> · Cómo funciona</p>
+      <h2 class="h2" id="h-como"><span class="ln"><span><span class="u">Dos tests</span> y</span></span><span class="ln"><span style="--i:1">listo.</span></span></h2>
+      <p class="lead muted fade" style="--i:2">Contestas con calma, sin respuestas correctas. Pinterest es opcional.</p>
+    </div>
+    <div class="steps">
+      <article class="step fade" style="--i:1">
+        <span class="n">01</span>
+        <span class="tag">Test</span>
+        <h3>Fortalezas y áreas de mejora</h3>
+        <p class="muted">Lo que hoy se te da y lo que todavía estás aprendiendo.</p>
+        <div class="demo">
+          <p class="q">¿Qué tan bien se te da…?</p>
+          <p class="qq" id="q1">Matemáticas y números</p>
+          <div class="opts" role="radiogroup" aria-labelledby="q1">
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">0</span>Me cuesta</button>
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">1</span>Aprendiendo</button>
+            <button class="opt" type="button" role="radio" aria-checked="true"><span class="k">2</span>Se me da bien</button>
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">3</span>Es mi fuerte</button>
+          </div>
+        </div>
+      </article>
+      <article class="step fade" style="--i:2">
+        <span class="n">02</span>
+        <span class="tag">Test</span>
+        <h3>Gustos y pasiones</h3>
+        <p class="muted">Lo que te late hacer, aunque nadie te lo pida.</p>
+        <div class="demo">
+          <p class="q">¿Qué tanto te late…?</p>
+          <p class="qq" id="q2">Armar o reparar cosas</p>
+          <div class="opts" role="radiogroup" aria-labelledby="q2">
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">0</span>Nada</button>
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">1</span>Poco</button>
+            <button class="opt" type="button" role="radio" aria-checked="false"><span class="k">2</span>Me late</button>
+            <button class="opt" type="button" role="radio" aria-checked="true"><span class="k">3</span>Me encanta</button>
+          </div>
+        </div>
+      </article>
+      <article class="step fade" style="--i:3">
+        <span class="n">03</span>
+        <span class="tag">Opcional</span>
+        <h3>Tus pines de Pinterest</h3>
+        <p class="muted">Se leen en tu teléfono, de forma anónima. Solo salen números agregados, nunca tus datos.</p>
+        <div class="demo">
+          <p class="q">Así se ven tus intereses (ejemplo)</p>
+          <div class="bars">
+            <div>Investigador<span class="track"><i style="--w:88%;--i:0"></i></span></div>
+            <div>Social<span class="track soft"><i style="--w:72%;--i:1"></i></span></div>
+            <div>Constructor<span class="track soft"><i style="--w:40%;--i:2"></i></span></div>
+            <div>Creativo<span class="track soft"><i style="--w:30%;--i:3"></i></span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 03 LO QUE RECIBES -->
+<section class="sec" id="recibes" aria-labelledby="h-rec" data-reveal style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label idx"><b>03</b> · Lo que recibes</p>
+      <h2 class="h2" id="h-rec"><span class="ln"><span>Tu ruta</span></span><span class="ln"><span style="--i:1"><span class="u">completa</span>.</span></span></h2>
+    </div>
+    <div class="bento">
+      <article class="tile t-top fade" style="--i:0">
+        <p class="label">Tu top 3 de carreras</p>
+        <h3 class="career">Medicina</h3>
+        <p class="pct" aria-label="94 por ciento de match"><span data-count="94">94</span><small>%</small></p>
+        <p style="font-weight:600;margin-top:-4px">de match contigo</p>
+        <span class="track"><i style="--w:94%"></i></span>
+        <div class="rows">
+          <div><span><b>02</b>Ing. Mecatrónica</span><span>79%</span></div>
+          <div><span><b>03</b>Ciencia de Datos</span><span>76%</span></div>
+        </div>
+        <p class="src">Perfil de ejemplo · Modelo RIASEC + datos de <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noopener">O*NET</a></p>
+      </article>
+      <article class="tile t-becas fade" style="--i:1">
+        <p class="label">Becas</p>
+        <p class="word">Oficiales</p>
+        <p class="muted">Cada beca trae su liga oficial y su fecha, para que no se te pase.</p>
+      </article>
+      <a class="tile t-audio fade" style="--i:2" href="#yo2045">
+        <p class="label">Audio</p>
+        <span class="mini-wave" aria-hidden="true" id="miniWave"></span>
+        <strong>Tu yo del 2045</strong>
+        <span class="go">Escúchalo <span aria-hidden="true">↓</span></span>
+      </a>
+      <article class="tile t-free fade" style="--i:3">
+        <p class="label">Precio</p>
+        <p class="word">Gratis</p>
+        <p class="muted">Y sin contraseñas.</p>
+      </article>
+      <article class="tile t-unis fade" style="--i:2">
+        <div class="unis-head">
+          <h3>3 universidades reales por carrera</h3>
+          <p class="src">Ejemplo para Medicina · Ranking: <a href="https://www.topuniversities.com/world-university-rankings" target="_blank" rel="noopener">QS 2026</a></p>
+        </div>
+        <div class="unis">
+          <div class="uni">
+            <figure>
+              <div class="ph"><img src="assets/salamanca.webp" alt="Fachada de piedra labrada de la Universidad de Salamanca, de noche" width="800" height="549" loading="lazy" decoding="async"></div>
+              <figcaption>Foto: Nacaru, CC BY-SA 4.0, vía Wikimedia Commons</figcaption>
+            </figure>
+            <p class="label"><b>Sueño</b> · Internacional</p>
+            <h4>U. de Salamanca</h4>
+            <div class="kv"><div><span>QS</span><strong class="tbd">Por confirmar</strong></div><div><span>Costo</span><strong class="tbd">Por confirmar</strong></div><div><span>Dónde</span><strong>España</strong></div></div>
+          </div>
+          <div class="uni">
+            <figure>
+              <div class="ph"><img src="assets/tec.webp" alt="Campus Monterrey del Tec con el Cerro de la Silla al fondo" width="800" height="600" loading="lazy" decoding="async"></div>
+              <figcaption>Foto: Dzo22, CC BY 4.0, vía Wikimedia Commons</figcaption>
+            </figure>
+            <p class="label"><b>Ideal</b> · Privada</p>
+            <h4>Tec de Monterrey</h4>
+            <div class="kv"><div><span>QS</span><strong>#187</strong></div><div><span>Costo</span><strong class="tbd">Por confirmar</strong></div><div><span>Beca</span><strong>Hasta 100%</strong></div></div>
+          </div>
+          <div class="uni">
+            <figure>
+              <div class="ph"><img src="assets/unam.webp" alt="Biblioteca Central de Ciudad Universitaria, UNAM, con jardines al frente" width="800" height="659" loading="lazy" decoding="async"></div>
+              <figcaption>Foto: Carlos Valenzuela, CC BY-SA 4.0, vía Wikimedia Commons</figcaption>
+            </figure>
+            <p class="label"><b>Segura</b> · Pública</p>
+            <h4>UNAM</h4>
+            <div class="kv"><div><span>QS</span><strong>#136</strong></div><div><span>Costo</span><strong>Cuota simbólica</strong></div><div><span>Dónde</span><strong>CDMX</strong></div></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 TU YO DEL 2045 -->
+<section class="sec night" id="yo2045" aria-labelledby="h-2045" data-reveal>
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label idx"><b>2045</b> · Tu yo del futuro te habla</p>
+      <h2 class="h2" id="h-2045"><span class="ln"><span>Escucha tu vida</span></span><span class="ln"><span style="--i:1">en <span class="u">2045</span>.</span></span></h2>
+    </div>
+    <div class="player">
+      <div class="wave" id="wave" aria-hidden="true"></div>
+      <div class="ctrl">
+        <button class="play" id="play" type="button" aria-pressed="false" aria-label="Reproducir el audio de ejemplo">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+        </button>
+        <span class="time" id="time">0:00 / 0:07</span>
+      </div>
+      <ol class="subs" id="subs" aria-label="Transcripción">
+        <li data-a="0" data-b="3.3">Hola, soy tú, en 2045.</li>
+        <li data-a="3.3" data-b="7">Hoy estabilizamos a un bebé y ya sonríe.</li>
+      </ol>
+      <p class="note">Ejemplo de alguien cuyo top 1 es Medicina. Tu audio se arma con tus resultados: eres tú, en el futuro, contándote tu día.</p>
+    </div>
+    <audio id="voz" preload="none" src="assets/voz-2045.m4a"></audio>
+  </div>
+</section>
+
+<!-- 05 VIDEO -->
+<section class="sec" id="video" aria-labelledby="h-vid" data-reveal>
+  <div class="wrap">
+    <div class="vid-grid">
+      <div class="phone fade">
+        <video id="promo" controls playsinline preload="none" poster="assets/promo.webp" width="720" height="1280" aria-label="Video promocional de FUTURO, 50 segundos, narrado">
+          <source src="assets/promo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="vid-copy">
+        <p class="label idx"><b>04</b> · En video</p>
+        <h2 class="h2" id="h-vid"><span class="ln"><span>FUTURO en</span></span><span class="ln"><span style="--i:1"><span class="u">50</span> segundos.</span></span></h2>
+        <p class="lead muted fade" style="--i:2">Súbele el volumen. Toca un momento para saltar a él.</p>
+        <ol class="chap fade" style="--i:3">
+          <li><button type="button" data-t="3.6"><span>0:03</span>El problema</button></li>
+          <li><button type="button" data-t="13.2"><span>0:13</span>Los dos tests</button></li>
+          <li><button type="button" data-t="22.2"><span>0:22</span>Tu top 3 y tus universidades</button></li>
+          <li><button type="button" data-t="36"><span>0:36</span>Tu yo del 2045</button></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 PRIVACIDAD -->
+<section class="sec" id="privacidad" aria-labelledby="h-priv" data-reveal style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label idx"><b>05</b> · Privacidad</p>
+    </div>
+    <h2 class="seal" id="h-priv"><span class="ln"><span>Ninguna universidad</span></span><span class="ln"><span style="--i:1"><span class="u">paga</span> por aparecer</span></span><span class="ln"><span style="--i:2">aquí.</span></span></h2>
+    <div class="privs">
+      <div class="priv fade" style="--i:1"><h3>Sin contraseñas</h3><p class="muted">Entras directo al test. No tienes que inventar ni recordar otra contraseña.</p></div>
+      <div class="priv fade" style="--i:2"><h3>Pinterest anónimo</h3><p class="muted">Es opcional. Tus pines se leen en tu teléfono y solo salen números agregados, nunca tus datos.</p></div>
+      <div class="priv fade" style="--i:3"><h3>Datos con fuente</h3><p class="muted">Modelo RIASEC, ocupaciones de O*NET, ranking QS y becas con su liga oficial.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 FAQ -->
+<section class="sec" id="faq" aria-labelledby="h-faq" data-reveal style="padding-top:0">
+  <div class="wrap faq-grid">
+    <div class="sec-head" style="margin:0;align-content:start">
+      <p class="label idx"><b>06</b> · Preguntas</p>
+      <h2 class="h2" id="h-faq"><span class="ln"><span>Lo que</span></span><span class="ln"><span style="--i:1">te <span class="u">preguntas</span>.</span></span></h2>
+    </div>
+    <div class="faq">
+      <details><summary>¿Cuánto cuesta?<span class="pm" aria-hidden="true"></span></summary><p class="a">Nada. FUTURO es gratis.</p></details>
+      <details><summary>¿Cuánto tiempo toma?<span class="pm" aria-hidden="true"></span></summary><p class="a">Unos 5 minutos: dos tests cortos y luego tus resultados.</p></details>
+      <details><summary>¿Tengo que conectar Pinterest?<span class="pm" aria-hidden="true"></span></summary><p class="a">No. Es opcional. Si lo conectas, tus pines se leen en tu teléfono de forma anónima y solo usamos números agregados.</p></details>
+      <details><summary>¿Cómo sacan mi % de match?<span class="pm" aria-hidden="true"></span></summary><p class="a">Cruzamos tus respuestas con el modelo RIASEC de intereses y con los datos de ocupaciones de <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noopener">O*NET</a>. El resultado es tu top 3 de carreras.</p></details>
+      <details><summary>¿Las universidades pagan por salir?<span class="pm" aria-hidden="true"></span></summary><p class="a">No. Ninguna universidad paga por aparecer aquí. Te mostramos una sueño, una ideal y una segura por carrera.</p></details>
+      <details><summary>¿Para quién es?<span class="pm" aria-hidden="true"></span></summary><p class="a">Para alumnos de prepa en México que todavía no saben qué estudiar, o que quieren confirmar lo que ya piensan.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final" aria-labelledby="h-final" data-reveal>
+  <div class="wrap">
+    <div class="glass">
+      <div class="inner">
+        <p class="label"><b>Del 2026</b> al 2045</p>
+        <h2 class="h2" id="h-final"><span class="ln"><span>Conoce a quien</span></span><span class="ln"><span style="--i:1">puedes <span class="u">llegar a ser</span>.</span></span></h2>
+        <p class="lead fade" style="--i:2">Dos tests, unos 5 minutos y cero costo.</p>
+        <div class="fade" style="--i:3"><a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <a class="logo" href="#top" aria-label="FUTURO, volver arriba">FUTURO<i></i></a>
+      <p class="lema">No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser.</p>
+      <div class="links">
+        <a href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Abrir la app</a>
+        <a href="#faq">Preguntas</a>
+      </div>
+    </div>
+    <dl>
+      <div><dt class="label">Fuentes</dt><dd>Deserción y cambio de carrera: Milenio. Ranking: <a href="https://www.topuniversities.com/world-university-rankings" target="_blank" rel="noopener">QS World University Rankings 2026</a>. Ocupaciones: <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noopener">O*NET</a>. Los % de match y el audio de esta página son un perfil de ejemplo.</dd></div>
+      <div><dt class="label">Créditos</dt><dd>Videos de estudiantes: Pexels y Mixkit. Fotos vía Wikimedia Commons: Universidad de Salamanca por Nacaru (CC BY-SA 4.0), Tec de Monterrey por Dzo22 (CC BY 4.0) y UNAM por Carlos Valenzuela (CC BY-SA 4.0).</dd></div>
+      <div><dt class="label">FUTURO · 2026</dt><dd>Orientación vocacional gratis para prepa en México.</dd></div>
+    </dl>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document, root=d.documentElement;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Reveals: el hero entra solo; las secciones fuera de pantalla esperan a verse. */
+  var hero=d.querySelector('.hero');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('in')})});
+  var secs=[].slice.call(d.querySelectorAll('[data-reveal]'));
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}})},{rootMargin:'0px 0px -12% 0px',threshold:0.05});
+    secs.forEach(function(s){if(s.getBoundingClientRect().top>innerHeight*0.9){s.classList.add('pre');io.observe(s)}});
+  }
+
+  /* Ruta: riel amarillo + año del 2026 al 2045 según el scroll. */
+  var rail=d.querySelector('.rail'), yearEl=d.getElementById('year'), nav=d.getElementById('nav'), y2045=d.getElementById('yo2045'), last=-1, ticking=false;
+  function onScroll(){
+    ticking=false;
+    var sy=scrollY, max=d.documentElement.scrollHeight-innerHeight;
+    if(rail) rail.style.setProperty('--p',max>0?Math.min(1,sy/max).toFixed(4):0);
+    var target=y2045.offsetTop-innerHeight*0.5, p=Math.max(0,Math.min(1,sy/Math.max(1,target)));
+    var yr=Math.round(2026+19*p); if(yr!==last){yearEl.textContent=yr;last=yr}
+    nav.classList.toggle('scrolled',sy>8);
+    var r=y2045.getBoundingClientRect(); root.classList.toggle('night-on',r.top<innerHeight*0.5&&r.bottom>innerHeight*0.5);
+  }
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});
+  addEventListener('resize',onScroll); onScroll();
+
+  /* Video del hero: carga después de la página y solo se reproduce visible. */
+  var hv=d.getElementById('heroVid');
+  function startHero(){
+    if(reduce) return;
+    hv.src='assets/hero.mp4';
+    var vo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var p=hv.play();if(p&&p.catch)p.catch(function(){})}else hv.pause()})});
+    vo.observe(hv);
+  }
+  if(d.readyState==='complete') setTimeout(startHero,300); else addEventListener('load',function(){setTimeout(startHero,300)});
+
+  /* Preguntas de ejemplo: radios de verdad, con flechas. */
+  [].forEach.call(d.querySelectorAll('[role=radiogroup]'),function(g){
+    var opts=[].slice.call(g.querySelectorAll('[role=radio]'));
+    function pick(o,focus){opts.forEach(function(x){var on=x===o;x.setAttribute('aria-checked',on);x.tabIndex=on?0:-1});if(focus)o.focus()}
+    opts.forEach(function(o,i){
+      o.tabIndex=o.getAttribute('aria-checked')==='true'?0:-1;
+      o.addEventListener('click',function(){pick(o)});
+      o.addEventListener('keydown',function(e){var k=e.key,n=null;if(k==='ArrowRight'||k==='ArrowDown')n=opts[(i+1)%opts.length];if(k==='ArrowLeft'||k==='ArrowUp')n=opts[(i-1+opts.length)%opts.length];if(n){e.preventDefault();pick(n,true)}});
+    });
+  });
+
+  /* Onda real del audio (picos medidos del archivo). */
+  var PK=[.99,.95,.52,.16,.07,.02,.04,.99,.88,.58,.35,.1,.05,.02,.53,.79,.35,.69,.76,.82,.48,.18,.29,.16,.02,.01,0,0,0,.9,.6,.66,.78,.52,.53,.37,.37,.5,.51,.5,.19,.03,.01,0,.04,.69,.71,1,.58,.62,.55,.39,.21,.09,.01,0];
+  var wave=d.getElementById('wave'), bars=[];
+  PK.forEach(function(v,i){var b=d.createElement('i');b.style.setProperty('--h',Math.max(4,Math.round(v*100))+'%');b.style.setProperty('--i',i);wave.appendChild(b);bars.push(b)});
+  var mini=d.getElementById('miniWave');
+  for(var i=0;i<PK.length;i+=3){var m=d.createElement('i');m.style.setProperty('--h',Math.max(8,Math.round(PK[i]*100))+'%');mini.appendChild(m)}
+
+  var au=d.getElementById('voz'), play=d.getElementById('play'), timeEl=d.getElementById('time'), subs=[].slice.call(d.querySelectorAll('#subs li'));
+  function fmt(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+  function paint(){
+    var t=au.currentTime||0, dur=au.duration||6.87, k=Math.floor(t/dur*bars.length);
+    bars.forEach(function(b,i){b.classList.toggle('on',i<k)});
+    subs.forEach(function(li){li.classList.toggle('now',t>=+li.dataset.a&&t<+li.dataset.b&&!au.paused)});
+    timeEl.textContent=fmt(t)+' / '+fmt(dur);
+    if(!au.paused) requestAnimationFrame(paint);
+  }
+  play.addEventListener('click',function(){
+    if(au.paused){var p=au.play();if(p&&p.catch)p.catch(function(){});}else au.pause();
+  });
+  au.addEventListener('play',function(){play.setAttribute('aria-pressed','true');play.setAttribute('aria-label','Pausar el audio');requestAnimationFrame(paint)});
+  au.addEventListener('pause',function(){play.setAttribute('aria-pressed','false');play.setAttribute('aria-label','Reproducir el audio de ejemplo');paint()});
+  au.addEventListener('ended',function(){au.currentTime=0;paint()});
+
+  /* Capítulos del video. */
+  var pv=d.getElementById('promo');
+  [].forEach.call(d.querySelectorAll('.chap button'),function(b){
+    b.addEventListener('click',function(){
+      var t=+b.dataset.t;
+      function go(){pv.currentTime=t;var p=pv.play();if(p&&p.catch)p.catch(function(){})}
+      if(pv.readyState>=1) go(); else {pv.preload='metadata';pv.addEventListener('loadedmetadata',go,{once:true});pv.load()}
+    });
+  });
+})();
+</script>

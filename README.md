@@ -1,6 +1,6 @@
 # Landing de FUTURO
 
-Publicada en https://claude.ai/artifact/PPYXqdhuJQp2B1w6MK1DVV
+Publicada en https://santiagocaballero007.github.io/FUTURO-landing-page/ (GitHub Pages, se actualiza sola en cada push a `main`) y en https://claude.ai/artifact/PPYXqdhuJQp2B1w6MK1DVV (privado).
 
 ## Cómo editarla
 - **Textos:** todo está en `index.html`. Busca la frase que quieras cambiar y edítala.

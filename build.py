@@ -6,6 +6,7 @@ Uso: python3 landing/build.py
 """
 import pathlib
 import shutil
+import sys
 
 ROOT = pathlib.Path(__file__).parent
 DIST = ROOT / "dist"
@@ -30,7 +31,8 @@ shutil.copytree(ROOT / "assets", DIST / "assets")
 # Fuera de Artifact, las fuentes cargan sin bloquear el primer render (mejor FCP).
 font = head_part[head_part.index('<link rel="stylesheet"'):]
 font = font[: font.index(">") + 1]
-head_part = head_part.replace(font, font[:-1] + " media=\"print\" onload=\"this.media='all'\">\n<noscript>" + font + "</noscript>")
+if "--blocking-fonts" not in sys.argv:  # capturas: fuentes bloqueantes
+    head_part = head_part.replace(font, font[:-1] + " media=\"print\" onload=\"this.media='all'\">\n<noscript>" + font + "</noscript>")
 html = HEAD.replace("</head>", head_part + "\n</head>") + body_part + "\n</body>\n</html>\n"
 (DIST / "index.html").write_text(html, encoding="utf-8")
 print("dist listo:", DIST)

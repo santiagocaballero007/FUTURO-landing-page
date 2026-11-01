@@ -21,6 +21,6 @@ Abre http://localhost:4322. Este servidor soporta saltos dentro del video; `pyth
 
 ## Archivos
 - `index.html`: la página. Va sin `<!doctype>`, `<head>` ni `<body>` porque así lo pide Artifact; `build.py` los agrega para `dist/`.
-- `assets/`: hero.mp4 (4 clips de 3 s), promo.mp4 y promo.webp, fotos de universidades, voz-2045.mp3 y og.jpg.
+- `assets/`: hero.mp4 (4 clips de Pexels de 3 s: 7970380, 7605357, 8189500, 7230985, recortados a 576×720), promo.mp4 y promo.webp, fotos de universidades, voz-2045.mp3 y og.jpg.
 - `og.html`: fuente de la imagen de portada `assets/og.jpg`. Para regenerarla, haz una captura de 1200×630 con Chrome headless.
-- Créditos: videos de Pexels/Mixkit; fotos de Wikimedia Commons (Nacaru CC BY-SA 4.0, Dzo22 CC BY 4.0, Carlos Valenzuela CC BY-SA 4.0); audio generado con ElevenLabs.
+- Créditos: hero de Pexels (George Pak, RDNE Stock project, Yan Krukau, Kampus Production); promo con clips de Pexels/Mixkit; fotos de Wikimedia Commons (Nacaru CC BY-SA 4.0, Dzo22 CC BY 4.0, Carlos Valenzuela CC BY-SA 4.0); audio generado con ElevenLabs.

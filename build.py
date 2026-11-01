@@ -21,8 +21,16 @@ HEAD = """<!doctype html>
 """
 
 src = (ROOT / "index.html").read_text(encoding="utf-8")
+# Lo que va antes del primer </style> (title, meta, fuentes y CSS) sube al <head>.
+cut = src.index("</style>") + len("</style>")
+head_part, body_part = src[:cut], src[cut:]
 if DIST.exists():
     shutil.rmtree(DIST)
 shutil.copytree(ROOT / "assets", DIST / "assets")
-(DIST / "index.html").write_text(HEAD + src + "\n</body>\n</html>\n", encoding="utf-8")
+# Fuera de Artifact, las fuentes cargan sin bloquear el primer render (mejor FCP).
+font = head_part[head_part.index('<link rel="stylesheet"'):]
+font = font[: font.index(">") + 1]
+head_part = head_part.replace(font, font[:-1] + " media=\"print\" onload=\"this.media='all'\">\n<noscript>" + font + "</noscript>")
+html = HEAD.replace("</head>", head_part + "\n</head>") + body_part + "\n</body>\n</html>\n"
+(DIST / "index.html").write_text(html, encoding="utf-8")
 print("dist listo:", DIST)

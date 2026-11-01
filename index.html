@@ -3,7 +3,15 @@
 <meta name="description" content="Orientación vocacional gratis para prepa en México. Dos tests, tu top 3 de carreras con % de match, universidades reales, becas oficiales y un audio de tu yo del 2045.">
 <meta property="og:title" content="FUTURO · Descubre tu ruta">
 <meta property="og:description" content="No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser. Gratis, en unos 5 minutos.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FUTURO: Te enseñamos quién puedes llegar a ser.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FBFBF8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBFBF8'/%3E%3Cpath d='M18 12h30v9H28v8h17v9H28v14H18z' fill='%23111827'/%3E%3Crect x='14' y='54' width='36' height='4' fill='%23FFD23F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Syne:wght@700;800&display=swap">
@@ -74,7 +82,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .btn-ghost{color:var(--ink);border-color:var(--line-2);background:transparent}
 .btn-ghost:hover{border-color:var(--ink)}
 .btn-sm{min-height:44px;padding:0 16px;font-size:15px}
-@media (max-width:420px){.nav .btn-sm .arr{display:none}.nav .btn-sm{padding:0 14px;font-size:14px}.nav .wrap{gap:10px}.logo{font-size:19px}.year{margin-left:6px}}
+@media (max-width:420px){.nav .btn-sm .arr{display:none}.nav .btn-sm{padding:0 14px;font-size:14px}.nav .wrap{gap:10px}.nav .logo{font-size:17px}.nav .year{margin-left:4px}.nav .year strong{font-size:13px}}
 
 /* Nav */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s var(--ease)}
@@ -104,13 +112,13 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .sec-head{display:grid;gap:20px;margin-bottom:clamp(36px,6vw,64px)}
 
 /* HERO */
-.hero{position:relative;overflow-x:clip;padding-block:clamp(32px,6vw,72px) clamp(64px,9vw,112px)}
+.hero{position:relative;overflow-x:clip;padding-block:clamp(32px,6vw,72px) clamp(24px,4vw,48px)}
 .hero-grid{display:grid;gap:48px;align-items:center}
-@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);gap:56px}}
+@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);gap:56px}}
 .hero-copy{display:grid;gap:24px;min-width:0}
 .pre-h{font:400 clamp(19px,2.3vw,24px)/1.3 var(--body);color:var(--muted)}
-.h1{font-weight:800;font-size:clamp(35px,10.2vw,86px);line-height:.98;letter-spacing:-.02em}
-@media (min-width:960px){.h1{font-size:clamp(56px,6vw,86px)}}
+.h1{font-weight:800;font-size:clamp(30px,9.4vw,86px);line-height:.98;letter-spacing:-.025em}
+@media (min-width:960px){.h1{font-size:clamp(48px,5.6vw,74px)}}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:560px}
 @media (min-width:560px){.meta{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -130,15 +138,16 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 
 /* 01 PROBLEMA */
 .stat{display:grid;gap:28px}
-.big{font:800 clamp(64px,17vw,200px)/.88 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.big{font:800 clamp(52px,16.4vw,200px)/.88 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .big small{font-size:.36em;letter-spacing:-.01em;color:var(--muted);font-weight:700}
 .dots{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,14px)}
-.dots i{width:clamp(22px,4.4vw,44px);aspect-ratio:1;border-radius:50%;border:2px solid var(--line-2);transition:background-color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);transition-delay:calc(var(--i) * 40ms)}
+.dots i{width:clamp(22px,4.4vw,52px);aspect-ratio:1;border-radius:50%;border:2px solid var(--line-2);transition:background-color .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);transition-delay:calc(var(--i) * 40ms)}
 .dots i.on{background:var(--accent);border-color:var(--accent)}
 .js :is(.pre,.hero:not(.in)) .dots i{transform:scale(.6)}
 .js :is(.pre,.hero:not(.in)) .dots i.on{background:transparent;border-color:var(--line-2)}
 .para-h{font:600 clamp(22px,3.4vw,38px)/1.25 var(--body);letter-spacing:-.01em;max-width:30ch}
-@media (min-width:960px){.stat{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:end;column-gap:64px}.stat .side{display:grid;gap:24px}}
+.stat .side{display:grid;gap:24px}
+@media (min-width:960px){.stat{gap:48px}.stat .side{grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;column-gap:64px;row-gap:20px;align-items:start}.stat .dots{grid-row:1 / 3;max-width:340px}.stat .src{grid-column:2}}
 
 /* 02 CÓMO FUNCIONA */
 .steps{display:grid;gap:16px}
@@ -151,10 +160,10 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .demo .q{font-size:15px;color:var(--muted)}
 .demo .qq{font:700 20px/1.15 var(--display)}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.opt{min-height:48px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);font:600 15px/1.1 var(--body);color:var(--ink);text-align:left;cursor:pointer;transition:background-color .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease),transform .16s var(--ease)}
+.opt{min-height:48px;display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);font:600 14px/1.15 var(--body);color:var(--ink);text-align:left;cursor:pointer;transition:background-color .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease),transform .16s var(--ease)}
 .opt:hover{border-color:var(--line-2)}
 .opt:active{transform:scale(.97)}
-.opt .k{flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:11px;color:var(--muted)}
+.opt .k{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;font-size:11px;color:var(--muted)}
 .opt[aria-checked="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .opt[aria-checked="true"] .k{border-color:rgba(255,255,255,.7);color:var(--on-accent)}
 .bars{display:grid;gap:12px}
@@ -191,7 +200,8 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .mini-wave i{flex:1;background:var(--sky);border-radius:9px;height:var(--h)}
 .t-audio strong{font:700 22px/1.15 var(--display)}
 .t-audio .go{font-weight:600;color:var(--night-muted)}
-.t-free .word{font:800 clamp(40px,5vw,56px)/.95 var(--display);letter-spacing:-.02em}
+.t-free .word{font:800 clamp(40px,10vw,56px)/.95 var(--display);letter-spacing:-.02em}
+@media (min-width:900px){.t-free .word{font-size:clamp(30px,3vw,40px)}}
 .unis-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
 .unis-head h3{font-weight:700;font-size:clamp(22px,3vw,30px);line-height:1.15}
 .unis{display:grid;gap:16px}
@@ -203,10 +213,11 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .uni:hover .ph img{transform:scale(1.03)}
 .uni figcaption{font-size:12px;color:var(--muted)}
 .uni h4{margin:0;font:800 clamp(22px,2.4vw,26px)/1.1 var(--display);letter-spacing:-.01em}
-.kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.kv div{border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:grid;gap:4px;min-width:0;background:var(--bg)}
-.kv span{font:600 10.5px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.kv strong{font:600 15px/1.2 var(--body);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+@media (min-width:760px){.uni h4{min-height:2.2em}}
+.kv{display:grid;border-top:1px solid var(--line)}
+.kv div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);min-width:0}
+.kv span{font:600 11px/1.2 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kv strong{font:600 15px/1.2 var(--body);font-variant-numeric:tabular-nums;text-align:right}
 .tbd{color:var(--muted);font-weight:600}
 
 /* 04 · 2045 (único momento oscuro) */
@@ -216,7 +227,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .night .u{background-image:linear-gradient(var(--mark),var(--mark))}
 .player{display:grid;gap:clamp(28px,4vw,40px)}
 .wave{display:flex;align-items:center;gap:clamp(2px,.5vw,5px);height:clamp(120px,20vw,200px)}
-.wave i{flex:1;min-width:2px;height:var(--h);border-radius:99px;background:var(--night-line);transition:background-color .12s linear 0s,transform .4s var(--ease) calc(var(--i) * 6ms)}
+.wave i{flex:1;min-width:2px;height:var(--h);border-radius:99px;background:rgba(127,166,255,.24);transition:background-color .12s linear 0s,transform .4s var(--ease) calc(var(--i) * 6ms)}
 .wave i.on{background:var(--sky)}
 .js :is(.pre,.hero:not(.in)) .wave i{transform:scaleY(.15)}
 .ctrl{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
@@ -239,6 +250,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .phone{position:relative;border-radius:32px;overflow:hidden;aspect-ratio:9/16;max-width:100%;width:min(100%,380px);justify-self:center;background:var(--bg);border:1px solid var(--line)}
 .phone video{width:100%;height:100%;object-fit:cover}
 .vid-copy{display:grid;gap:20px;min-width:0}
+@media (min-width:900px){.vid-copy .idx::before{display:none}}
 .chap{display:grid;border-top:1px solid var(--line);margin:0;padding:0;list-style:none}
 .chap li{border-bottom:1px solid var(--line)}
 .chap button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;width:100%;min-height:52px;padding:8px 0;font-weight:600;transition:color .16s var(--ease)}
@@ -265,6 +277,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .faq summary .pm::after{rotate:90deg;transition:rotate .24s var(--ease)}
 .faq details[open] summary .pm::after{rotate:0deg}
 .faq .a{padding:0 0 20px;max-width:60ch;color:var(--muted)}
+@media (min-width:960px){.faq-grid .h2{font-size:clamp(34px,3.4vw,44px)}}
 .faq .a a{color:var(--ink);text-underline-offset:3px}
 
 /* CTA final: vidrio estriado sobre el aura */
@@ -297,7 +310,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 }
 </style>
 
-<script>document.documentElement.lang="es-MX";document.documentElement.classList.add("js");setTimeout(function(){var h=document.querySelector(".hero");if(h)h.classList.add("in")},1500)</script>
+<script>document.documentElement.lang="es-MX";if(location.search.indexOf("shot")<0)document.documentElement.classList.add("js");setTimeout(function(){var h=document.querySelector(".hero");if(h)h.classList.add("in")},1500)</script>
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="rail" aria-hidden="true"><i></i></div>
 
@@ -331,7 +344,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       </div>
       <div class="meta fade" style="--i:6">
         <div><span>Tests</span><strong>2</strong></div>
-        <div><span>Tiempo</span><strong>~5 min</strong></div>
+        <div><span>Tiempo aprox.</span><strong>5 min</strong></div>
         <div><span>Precio</span><strong>Gratis</strong></div>
         <div><span>Contraseñas</span><strong>Ninguna</strong></div>
       </div>
@@ -471,13 +484,13 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       <article class="tile t-unis fade" style="--i:2">
         <div class="unis-head">
           <h3>3 universidades reales por carrera</h3>
-          <p class="src">Ejemplo para Medicina · Ranking: <a href="https://www.topuniversities.com/world-university-rankings" target="_blank" rel="noopener">QS 2026</a></p>
+          <p class="src">Ejemplo para Medicina · Ranking: <a href="https://www.topuniversities.com/world-university-rankings" target="_blank" rel="noopener">QS 2026</a> · Fotos: Wikimedia Commons</p>
         </div>
         <div class="unis">
           <div class="uni">
             <figure>
               <div class="ph"><img src="assets/salamanca.webp" alt="Fachada de piedra labrada de la Universidad de Salamanca, de noche" width="800" height="549" loading="lazy" decoding="async"></div>
-              <figcaption>Foto: Nacaru, CC BY-SA 4.0, vía Wikimedia Commons</figcaption>
+              <figcaption>Foto: Nacaru · CC BY-SA 4.0</figcaption>
             </figure>
             <p class="label"><b>Sueño</b> · Internacional</p>
             <h4>U. de Salamanca</h4>
@@ -486,7 +499,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
           <div class="uni">
             <figure>
               <div class="ph"><img src="assets/tec.webp" alt="Campus Monterrey del Tec con el Cerro de la Silla al fondo" width="800" height="600" loading="lazy" decoding="async"></div>
-              <figcaption>Foto: Dzo22, CC BY 4.0, vía Wikimedia Commons</figcaption>
+              <figcaption>Foto: Dzo22 · CC BY 4.0</figcaption>
             </figure>
             <p class="label"><b>Ideal</b> · Privada</p>
             <h4>Tec de Monterrey</h4>
@@ -495,7 +508,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
           <div class="uni">
             <figure>
               <div class="ph"><img src="assets/unam.webp" alt="Biblioteca Central de Ciudad Universitaria, UNAM, con jardines al frente" width="800" height="659" loading="lazy" decoding="async"></div>
-              <figcaption>Foto: Carlos Valenzuela, CC BY-SA 4.0, vía Wikimedia Commons</figcaption>
+              <figcaption>Foto: Carlos Valenzuela · CC BY-SA 4.0</figcaption>
             </figure>
             <p class="label"><b>Segura</b> · Pública</p>
             <h4>UNAM</h4>
@@ -544,8 +557,8 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       </div>
       <div class="vid-copy">
         <p class="label idx"><b>04</b> · En video</p>
-        <h2 class="h2" id="h-vid"><span class="ln"><span>FUTURO en</span></span><span class="ln"><span style="--i:1"><span class="u">50</span> segundos.</span></span></h2>
-        <p class="lead muted fade" style="--i:2">Súbele el volumen. Toca un momento para saltar a él.</p>
+        <h2 class="h2" id="h-vid"><span class="ln"><span>Dale</span></span><span class="ln"><span style="--i:1"><span class="u">play</span>.</span></span></h2>
+        <p class="lead muted fade" style="--i:2">FUTURO en 50 segundos. Súbele el volumen o toca un momento para saltar a él.</p>
         <ol class="chap fade" style="--i:3">
           <li><button type="button" data-t="3.6"><span>0:03</span>El problema</button></li>
           <li><button type="button" data-t="13.2"><span>0:13</span>Los dos tests</button></li>
@@ -577,7 +590,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
   <div class="wrap faq-grid">
     <div class="sec-head" style="margin:0;align-content:start">
       <p class="label idx"><b>06</b> · Preguntas</p>
-      <h2 class="h2" id="h-faq"><span class="ln"><span>Lo que</span></span><span class="ln"><span style="--i:1">te <span class="u">preguntas</span>.</span></span></h2>
+      <h2 class="h2" id="h-faq"><span class="ln"><span>Lo que te</span></span><span class="ln"><span style="--i:1"><span class="u">preguntas</span>.</span></span></h2>
     </div>
     <div class="faq">
       <details><summary>¿Cuánto cuesta?<span class="pm" aria-hidden="true"></span></summary><p class="a">Nada. FUTURO es gratis.</p></details>
@@ -596,7 +609,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
     <div class="glass">
       <div class="inner">
         <p class="label"><b>Del 2026</b> al 2045</p>
-        <h2 class="h2" id="h-final"><span class="ln"><span>Conoce a quien</span></span><span class="ln"><span style="--i:1">puedes <span class="u">llegar a ser</span>.</span></span></h2>
+        <h2 class="h2" id="h-final"><span class="ln"><span>Tu 2045</span></span><span class="ln"><span style="--i:1">empieza</span></span><span class="ln"><span style="--i:2"><span class="u">hoy</span>.</span></span></h2>
         <p class="lead fade" style="--i:2">Dos tests, unos 5 minutos y cero costo.</p>
         <div class="fade" style="--i:3"><a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a></div>
       </div>

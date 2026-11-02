@@ -626,7 +626,11 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
         <p class="label"><b>Del 2026</b> al 2045</p>
         <h2 class="h2" id="h-final"><span class="ln"><span>Tu 2045</span></span><span class="ln"><span style="--i:1">empieza</span></span><span class="ln"><span style="--i:2"><span class="u">hoy</span>.</span></span></h2>
         <p class="lead fade" style="--i:2">Dos tests, unos 5 minutos y cero costo.</p>
-        <div class="fade" style="--i:3"><a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a></div>
+        <div class="cta-row fade" style="--i:3">
+          <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" id="cta-hijo" href="https://wa.me/?text=Encontr%C3%A9%20esto%20para%20elegir%20carrera%3A%20un%20test%20vocacional%20gratis%2C%20en%20unos%205%20minutos.%20%C2%BFLo%20haces%3F%20https%3A%2F%2Ffuturo-final.lovable.app%2F%3Futm_source%3Dorganico%26utm_medium%3Dwhatsapp_papa" target="_blank" rel="noopener" aria-label="Mándaselo a tu hijo por WhatsApp">Mándaselo a tu hijo</a>
+        </div>
+        <p class="muted fade" style="--i:4">¿Eres mamá o papá? El botón abre WhatsApp con el link listo para mandar.</p>
       </div>
     </div>
   </div>
@@ -726,6 +730,25 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
   au.addEventListener('play',function(){play.setAttribute('aria-pressed','true');play.setAttribute('aria-label','Pausar el audio');requestAnimationFrame(paint)});
   au.addEventListener('pause',function(){play.setAttribute('aria-pressed','false');play.setAttribute('aria-label','Reproducir el audio de ejemplo');paint()});
   au.addEventListener('ended',function(){au.currentTime=0;paint()});
+
+  /* Campaña: los UTMs de la URL pasan a los links de la app, y el botón para papás arma el
+     mensaje de WhatsApp con utm_medium=whatsapp_papa. Sin cookies ni pixel; nada sale de la página. */
+  var APP='https://futuro-final.lovable.app', q=new URLSearchParams(location.search), utm={};
+  ['utm_source','utm_medium','utm_campaign','utm_content','fbclid'].forEach(function(k){if(q.get(k))utm[k]=q.get(k)});
+  if(Object.keys(utm).length){
+    [].forEach.call(d.querySelectorAll('a[href^="'+APP+'"]'),function(a){
+      var u=new URL(a.href);Object.keys(utm).forEach(function(k){u.searchParams.set(k,utm[k])});a.href=u.toString();
+    });
+  }
+  var hijo=d.getElementById('cta-hijo');
+  if(hijo){
+    var w=new URL(APP);
+    w.searchParams.set('utm_source',utm.utm_source||'organico');
+    w.searchParams.set('utm_medium','whatsapp_papa');
+    if(utm.utm_campaign)w.searchParams.set('utm_campaign',utm.utm_campaign);
+    if(utm.utm_content)w.searchParams.set('utm_content',utm.utm_content);
+    hijo.href='https://wa.me/?text='+encodeURIComponent('Encontré esto para elegir carrera: un test vocacional gratis, en unos 5 minutos. ¿Lo haces? '+w);
+  }
 
   /* Capítulos del video. */
   var pv=d.getElementById('promo');

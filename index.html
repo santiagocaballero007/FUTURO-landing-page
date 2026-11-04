@@ -1,8 +1,8 @@
 <title>FUTURO · Descubre tu ruta</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Orientación vocacional gratis para prepa en México. Dos tests, tu top 3 de carreras con % de match, universidades reales, becas oficiales y un audio de tu yo del 2045.">
+<meta name="description" content="Orientación vocacional para prepa en México. Dos tests, tu top 3 de carreras con % de match, universidades reales, becas oficiales y un audio de tu yo del 2045.">
 <meta property="og:title" content="FUTURO · Descubre tu ruta">
-<meta property="og:description" content="No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser. Gratis, en unos 5 minutos.">
+<meta property="og:description" content="No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser. En unos 5 minutos.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_MX">
 <meta property="og:image" content="assets/og.jpg">
@@ -122,7 +122,8 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 @media (max-width:520px){.cta-row .btn{width:100%}}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:560px}
-@media (min-width:560px){.meta{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.meta div:last-child{grid-column:1 / -1}
+@media (min-width:560px){.meta{grid-template-columns:repeat(3,minmax(0,1fr))}.meta div:last-child{grid-column:auto}}
 .meta div{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:12px 14px;display:grid;gap:4px}
 .meta span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .meta strong{font:700 18px/1.15 var(--display)}
@@ -183,7 +184,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
   .t-top{grid-column:span 6;grid-row:span 2}
   .t-becas{grid-column:span 6}
   .t-audio{grid-column:span 3}
-  .t-free{grid-column:span 3}
+  .t-sello{grid-column:span 3}
   .t-unis{grid-column:1 / -1}
 }
 .t-top{display:flex;flex-direction:column}
@@ -209,8 +210,8 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .mini-wave i{flex:1;max-width:8px;background:var(--sky);border-radius:9px;height:var(--h)}
 .t-audio strong{font:700 22px/1.15 var(--display)}
 .t-audio .go{font-weight:600;color:var(--night-muted)}
-.t-free .word{font:800 clamp(40px,10vw,56px)/.95 var(--display);letter-spacing:-.02em}
-@media (min-width:900px){.t-free .word{font-size:clamp(30px,3vw,40px)}}
+.t-sello .word{font:700 clamp(24px,6.4vw,30px)/1.12 var(--display);letter-spacing:-.01em;text-wrap:balance}
+@media (min-width:900px){.t-sello .word{font-size:clamp(20px,1.9vw,24px)}}
 .unis-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px}
 .unis-head h3{font-weight:700;font-size:clamp(22px,3vw,30px);line-height:1.15}
 .unis{display:grid;gap:16px}
@@ -337,7 +338,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 <section class="hero" id="top" aria-labelledby="h-hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="label fade" style="--i:0"><b>Gratis</b> · Para prepa en México</p>
+      <p class="label fade" style="--i:0"><b>Para prepa</b> · en México</p>
       <div>
         <p class="pre-h fade" style="--i:1">No te decimos qué estudiar.</p>
         <h1 class="h1" id="h-hero" style="margin-top:12px">
@@ -348,13 +349,12 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       </div>
       <p class="lead fade" style="--i:4">Haz dos tests, conoce tu top 3 de carreras con universidades y becas reales, y escucha a tu yo del 2045 contándote su día.</p>
       <div class="cta-row fade" style="--i:5">
-        <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test <span class="arr" aria-hidden="true">→</span></a>
         <a class="btn btn-ghost" href="#como">Ver cómo funciona</a>
       </div>
       <div class="meta fade" style="--i:6">
         <div><span>Tests</span><strong>2</strong></div>
         <div><span>Tiempo</span><strong>5 min</strong></div>
-        <div><span>Precio</span><strong>Gratis</strong></div>
         <div><span>Contraseñas</span><strong>Ninguna</strong></div>
       </div>
     </div>
@@ -489,10 +489,9 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
         <strong>Tu yo del 2045</strong>
         <span class="go">Escúchalo <span aria-hidden="true">↓</span></span>
       </a>
-      <article class="tile t-free fade" style="--i:3">
-        <p class="label">Precio</p>
-        <p class="word">Gratis</p>
-        <p class="muted">Y sin contraseñas.</p>
+      <article class="tile t-sello fade" style="--i:3">
+        <p class="label">Sello</p>
+        <p class="word">Ninguna universidad paga por aparecer aquí.</p>
       </article>
       <article class="tile t-unis fade" style="--i:2">
         <div class="unis-head">
@@ -608,7 +607,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       <h2 class="h2" id="h-faq"><span class="ln"><span>Lo que te</span></span><span class="ln"><span style="--i:1"><span class="u">preguntas</span>.</span></span></h2>
     </div>
     <div class="faq">
-      <details><summary>¿Cuánto cuesta?<span class="pm" aria-hidden="true"></span></summary><p class="a">Nada. FUTURO es gratis.</p></details>
+      <details><summary>¿Cuánto cuesta?<span class="pm" aria-hidden="true"></span></summary><p class="a">El precio está por confirmar. Lo publicamos aquí antes del lanzamiento.</p></details>
       <details><summary>¿Cuánto tiempo toma?<span class="pm" aria-hidden="true"></span></summary><p class="a">Unos 5 minutos: dos tests cortos y luego tus resultados.</p></details>
       <details><summary>¿Tengo que conectar Pinterest?<span class="pm" aria-hidden="true"></span></summary><p class="a">No. Es opcional. Si lo conectas, tus pines se leen en tu teléfono de forma anónima y solo usamos números agregados.</p></details>
       <details><summary>¿Cómo sacan mi % de match?<span class="pm" aria-hidden="true"></span></summary><p class="a">Cruzamos tus respuestas con el modelo RIASEC de intereses y con los datos de ocupaciones de <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noopener">O*NET</a>. El resultado es tu top 3 de carreras.</p></details>
@@ -627,8 +626,8 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
         <h2 class="h2" id="h-final"><span class="ln"><span>Tu 2045</span></span><span class="ln"><span style="--i:1">empieza</span></span><span class="ln"><span style="--i:2"><span class="u">hoy</span>.</span></span></h2>
         <p class="lead fade" style="--i:2">Dos tests, unos 5 minutos y cero costo.</p>
         <div class="cta-row fade" style="--i:3">
-          <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test gratis <span class="arr" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost" id="cta-hijo" href="https://wa.me/?text=Encontr%C3%A9%20esto%20para%20elegir%20carrera%3A%20un%20test%20vocacional%20gratis%2C%20en%20unos%205%20minutos.%20%C2%BFLo%20haces%3F%20https%3A%2F%2Ffuturo-final.lovable.app%2F%3Futm_source%3Dorganico%26utm_medium%3Dwhatsapp_papa" target="_blank" rel="noopener" aria-label="Mándaselo a tu hijo por WhatsApp">Mándaselo a tu hijo</a>
+          <a class="btn btn-primary" href="https://futuro-final.lovable.app" target="_blank" rel="noopener">Haz tu test <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" id="cta-hijo" href="https://wa.me/?text=Encontr%C3%A9%20esto%20para%20elegir%20carrera%3A%20un%20test%20vocacional%20de%20unos%205%20minutos.%20%C2%BFLo%20haces%3F%20https%3A%2F%2Ffuturo-final.lovable.app%2F%3Futm_source%3Dorganico%26utm_medium%3Dwhatsapp_papa" target="_blank" rel="noopener" aria-label="Mándaselo a tu hijo por WhatsApp">Mándaselo a tu hijo</a>
         </div>
         <p class="muted fade" style="--i:4">¿Eres mamá o papá? El botón abre WhatsApp con el link listo para mandar.</p>
       </div>
@@ -651,7 +650,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
     <dl>
       <div><dt class="label">Fuentes</dt><dd>Deserción y cambio de carrera: Milenio. Ranking: <a href="https://www.topuniversities.com/world-university-rankings" target="_blank" rel="noopener">QS World University Rankings 2026</a>. Ocupaciones: <a href="https://www.onetcenter.org/database.html" target="_blank" rel="noopener">O*NET</a>. Los % de match y el audio de esta página son un perfil de ejemplo.</dd></div>
       <div><dt class="label">Créditos</dt><dd>Video del inicio: George Pak, RDNE Stock project, Yan Krukau y Kampus Production en Pexels. Video promocional: clips de Pexels y Mixkit. Fotos vía Wikimedia Commons: Universidad de Salamanca por Nacaru (CC BY-SA 4.0), Tec de Monterrey por Dzo22 (CC BY 4.0) y UNAM por Carlos Valenzuela (CC BY-SA 4.0).</dd></div>
-      <div><dt class="label">FUTURO · 2026</dt><dd>Orientación vocacional gratis para prepa en México.</dd></div>
+      <div><dt class="label">FUTURO · 2026</dt><dd>Orientación vocacional para prepa en México.</dd></div>
     </dl>
   </div>
 </footer>
@@ -747,7 +746,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
     w.searchParams.set('utm_medium','whatsapp_papa');
     if(utm.utm_campaign)w.searchParams.set('utm_campaign',utm.utm_campaign);
     if(utm.utm_content)w.searchParams.set('utm_content',utm.utm_content);
-    hijo.href='https://wa.me/?text='+encodeURIComponent('Encontré esto para elegir carrera: un test vocacional gratis, en unos 5 minutos. ¿Lo haces? '+w);
+    hijo.href='https://wa.me/?text='+encodeURIComponent('Encontré esto para elegir carrera: un test vocacional de unos 5 minutos. ¿Lo haces? '+w);
   }
 
   /* Capítulos del video. */

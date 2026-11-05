@@ -28,6 +28,7 @@ head_part, body_part = src[:cut], src[cut:]
 if DIST.exists():
     shutil.rmtree(DIST)
 shutil.copytree(ROOT / "assets", DIST / "assets")
+shutil.copy(ROOT / "404.html", DIST / "404.html")  # GitHub Pages la sirve en cualquier ruta que no exista
 # Páginas aparte (documentos completos): canje de la tarjeta Fundador, lista de espera y voces del stand.
 for sub in ("canje", "pronto", "voces"):
     if (ROOT / sub).is_dir():

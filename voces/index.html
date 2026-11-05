@@ -2,12 +2,22 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#0E1018">
 <title>FUTURO · Voces del futuro</title>
+<meta property="og:title" content="FUTURO · Voces del futuro">
+<meta property="og:description" content="Escucha a alguien en 2045. Personajes de ejemplo; voces generadas con IA.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:url" content="https://futuro2045.com/voces/">
+<meta property="og:image" content="https://futuro2045.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="FUTURO: Te enseñamos quién puedes llegar a ser.">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 @font-face{font-family:Syne;font-weight:800;src:url(fonts/Syne-800.ttf)}
 @font-face{font-family:Manrope;font-weight:600;src:url(fonts/Manrope-600.ttf)}
@@ -43,6 +53,13 @@ h1 span{display:block;color:var(--sky)}
 .on .onda i{background:var(--sky);animation:late 1s ease-in-out infinite alternate;animation-delay:calc(var(--n)*-137ms)}
 @keyframes late{from{height:6px}to{height:32px}}
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+/* Teléfono o pantalla baja: la página crece y hace scroll; en iPad y compu todo cabe en una pantalla. */
+@media (max-width:640px),(max-height:640px){
+  html,body{height:auto}
+  body{overflow:auto}
+  main{height:auto;min-height:100%}
+  .grid{flex:none;grid-auto-rows:auto}
+}
 @media (prefers-reduced-motion:reduce){.on .onda i{animation:none;height:20px}.voz{transition:none}}
 </style>
 </head>
@@ -95,7 +112,7 @@ VOCES.forEach((v) => {
   v.el.innerHTML = `<div><div class="etq">Escucha a</div><div class="nom">${v.nombre}</div><div class="car">${v.carrera}</div></div>
     <div class="pie"><span class="btn">${PLAY}</span><span class="onda" aria-hidden="true">${
       Array.from({ length: 16 }, (_, n) => `<i style="--n:${n}"></i>`).join("")}</span></div>`;
-  v.el.setAttribute("aria-label", `Escuchar a ${v.nombre}. ${v.carrera}`);
+  v.el.setAttribute("aria-label", `Escucha a ${v.nombre}. ${v.carrera}`);
   v.el.addEventListener("click", () => {
     if (actual === v) return detener(v, true);
     if (actual) detener(actual, true);

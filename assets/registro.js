@@ -318,7 +318,8 @@ function canje(){
   function toOk(){
     var el = $('[data-screen=d]');
     var f = state.tipo === 'fundador' && state.numero;
-    $('[data-ok-line]', el).textContent = f ? 'Eres Fundador #' + state.numero + '.' : 'Tu regalo está apartado.';
+    $('[data-ok-line]', el).textContent = f ? 'Eres Fundador #' + state.numero + '.' : 'Falta un paso para apartar tu regalo.';
+    $('[data-ok-lead]', el).hidden = !f;
     $('[data-ok-code]', el).textContent = state.codigo;
     $('.meta', el).classList.toggle('stack', state.codigo === EVENTO);
     $('.pill', el).hidden = state.codigo === EVENTO;
@@ -338,7 +339,7 @@ function canje(){
   initForm(form, toFin, toMenor);
   // Menor: no pedimos datos. Con tarjeta solo se guarda el código en /apartar; con el código del video no se llama a nada
   // y no le decimos que guarde una tarjeta que no tiene.
-  var EVENTO_MENOR = 'Tu regalo está apartado. Canjéalo con el código STARTUPNOW cuando FUTURO abra.';
+  var EVENTO_MENOR = 'Guarda el código STARTUPNOW: lo canjeas cuando FUTURO abra.';
   var APARTADO = 'Tu regalo queda apartado. Guarda tu tarjeta: la canjeas cuando FUTURO abra.';
   var pedido = 0;
   function textoMenor(txt, reintentar){

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0E1018">
+<title>FUTURO · Voces del futuro</title>
+<style>
+@font-face{font-family:Syne;font-weight:800;src:url(fonts/Syne-800.ttf)}
+@font-face{font-family:Manrope;font-weight:600;src:url(fonts/Manrope-600.ttf)}
+@font-face{font-family:Manrope;font-weight:700;src:url(fonts/Manrope-700.ttf)}
+:root{--night:#0E1018;--ink:#F2F2EE;--muted:#A2A8B4;--blue:#2F5BFF;--sky:#7FA6FF;--lila:#B9A8FF;--yellow:#FFD23F;--line:rgba(242,242,238,.16)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--night);color:var(--ink);font:600 16px/1.35 Manrope,system-ui,sans-serif;overflow:hidden;
+  -webkit-user-select:none;user-select:none;touch-action:manipulation}
+.aura{position:fixed;width:900px;height:900px;right:-340px;top:-360px;border-radius:50%;opacity:.5;filter:blur(90px);pointer-events:none;
+  background:radial-gradient(circle at 40% 40%,var(--blue) 0 18%,transparent 52%),radial-gradient(circle at 60% 72%,var(--lila) 0 18%,transparent 54%)}
+main{position:relative;height:100%;display:flex;flex-direction:column;gap:clamp(16px,3vh,28px);
+  padding:clamp(20px,4vh,40px) clamp(20px,4vw,48px) clamp(16px,3vh,28px)}
+.logo{display:inline-block;font:800 22px/1 Syne,sans-serif;padding-bottom:6px;border-bottom:3px solid var(--yellow)}
+header{display:flex;flex-direction:column;gap:clamp(10px,2vh,18px)}
+h1{font:800 clamp(30px,5.4vw,56px)/1.04 Syne,sans-serif;letter-spacing:-.01em}
+h1 span{display:block;color:var(--sky)}
+.sub{color:var(--muted);font-size:clamp(15px,2vw,19px)}
+.grid{flex:1;min-height:0;display:grid;gap:clamp(10px,1.6vw,16px);grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));grid-auto-rows:minmax(0,1fr)}
+.voz{appearance:none;font:inherit;color:inherit;text-align:left;cursor:pointer;min-height:120px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:clamp(16px,2.2vw,24px);
+  background:rgba(255,255,255,.05);border:1.5px solid var(--line);border-radius:18px;transition:background .2s,border-color .2s}
+.voz:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.voz.on{background:rgba(47,91,255,.28);border-color:var(--sky)}
+.etq{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nom{font:800 clamp(22px,3vw,32px)/1.08 Syne,sans-serif;margin-top:6px}
+.car{color:var(--muted);margin-top:4px}
+.pie{display:flex;align-items:center;gap:14px}
+.btn{flex:none;width:56px;height:56px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
+.btn svg{width:22px;height:22px;fill:#fff}
+.onda{flex:1;display:flex;align-items:center;gap:4px;height:34px}
+.onda i{flex:1;max-width:6px;height:6px;border-radius:3px;background:var(--line)}
+.on .onda i{background:var(--sky);animation:late 1s ease-in-out infinite alternate;animation-delay:calc(var(--n)*-137ms)}
+@keyframes late{from{height:6px}to{height:32px}}
+footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){.on .onda i{animation:none;height:20px}.voz{transition:none}}
+</style>
+</head>
+<body>
+<div class="aura" aria-hidden="true"></div>
+<main>
+  <header>
+    <div><span class="logo">FUTURO</span></div>
+    <h1>Escucha a alguien <span>en 2045.</span></h1>
+    <p class="sub">Ponte los audífonos y toca una voz.</p>
+  </header>
+  <section class="grid" id="grid" aria-label="Voces"></section>
+  <footer>
+    <span>Personajes de ejemplo. Voces generadas con IA.</span>
+    <span>Ninguna universidad paga por aparecer aquí.</span>
+  </footer>
+</main>
+<script>
+// Para sumar una voz: copia su mp3 a audio/ y agrega una línea aquí.
+const VOCES = [
+  { nombre: "Renata", carrera: "Estudió Medicina", audio: "audio/renata.mp3" },
+  { nombre: "Diego", carrera: "Estudió Medicina · Pediatría", audio: "audio/diego.mp3" },
+  { nombre: "Lisa", carrera: "Estudió Arquitectura", audio: "audio/lisa.mp3" },
+  { nombre: "Camila", carrera: "Estudió Psicología", audio: "audio/camila.mp3" },
+  { nombre: "Alejandro", carrera: "Estudió Gastronomía", audio: "audio/alejandro.mp3" },
+];
+const PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>';
+const PAUSA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>';
+const grid = document.getElementById("grid");
+let actual = null;
+
+function apagar(v) {
+  v.el.classList.remove("on");
+  v.el.setAttribute("aria-pressed", "false");
+  v.el.querySelector(".btn").innerHTML = PLAY;
+}
+function detener(v, reiniciar) {
+  v.a.pause();
+  if (reiniciar) v.a.currentTime = 0;
+  apagar(v);
+  if (actual === v) actual = null;
+}
+VOCES.forEach((v) => {
+  v.a = new Audio(v.audio);
+  v.a.preload = "auto";
+  v.el = document.createElement("button");
+  v.el.className = "voz";
+  v.el.type = "button";
+  v.el.setAttribute("aria-pressed", "false");
+  v.el.innerHTML = `<div><div class="etq">Escucha a</div><div class="nom">${v.nombre}</div><div class="car">${v.carrera}</div></div>
+    <div class="pie"><span class="btn">${PLAY}</span><span class="onda" aria-hidden="true">${
+      Array.from({ length: 16 }, (_, n) => `<i style="--n:${n}"></i>`).join("")}</span></div>`;
+  v.el.setAttribute("aria-label", `Escuchar a ${v.nombre}. ${v.carrera}`);
+  v.el.addEventListener("click", () => {
+    if (actual === v) return detener(v, true);
+    if (actual) detener(actual, true);
+    actual = v;
+    v.el.classList.add("on");
+    v.el.setAttribute("aria-pressed", "true");
+    v.el.querySelector(".btn").innerHTML = PAUSA;
+    v.a.currentTime = 0;
+    v.a.play().catch(() => detener(v, true));
+  });
+  v.a.addEventListener("ended", () => detener(v, true));
+  grid.appendChild(v.el);
+});
+</script>
+</body>
+</html>

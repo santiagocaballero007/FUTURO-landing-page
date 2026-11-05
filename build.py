@@ -28,8 +28,8 @@ head_part, body_part = src[:cut], src[cut:]
 if DIST.exists():
     shutil.rmtree(DIST)
 shutil.copytree(ROOT / "assets", DIST / "assets")
-# Páginas aparte (documentos completos): canje de la tarjeta Fundador y lista de espera.
-for sub in ("canje", "pronto"):
+# Páginas aparte (documentos completos): canje de la tarjeta Fundador, lista de espera y voces del stand.
+for sub in ("canje", "pronto", "voces"):
     if (ROOT / sub).is_dir():
         shutil.copytree(ROOT / sub, DIST / sub)
 # Fuera de Artifact, las fuentes cargan sin bloquear el primer render (mejor FCP).

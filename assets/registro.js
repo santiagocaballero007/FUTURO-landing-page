@@ -7,12 +7,15 @@
 // Endpoints de producción (responden cuando el workflow esté activo). CORS solo desde santiagocaballero007.github.io.
 var API = {
   validar: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/validar',
-  registro: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/registro'
+  registro: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/registro',
+  apartar: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/apartar'
 };
 // Apertura de FUTURO en ISO con zona de CDMX, p. ej. '2026-12-01T10:00:00-06:00'. Vacío = "Muy pronto" (fecha por confirmar).
 var LANZAMIENTO = '';
 // Versión del texto de la casilla; n8n la pide y la guarda con el registro.
 var AVISO_VERSION = 'v1-2026-11';
+// Link de Instagram de FUTURO. Vacío = el botón no aparece.
+var INSTAGRAM_URL = '';
 var BENEFICIO = 'Entras antes que todos y te llevas un extra de lanzamiento.';
 
 var TXT = {
@@ -36,7 +39,7 @@ var params = new URLSearchParams(location.search);
 var MOCK = params.get('mock') === '1' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);   // nunca en la página publicada
 var lanzamiento = (MOCK && params.get('fecha')) || LANZAMIENTO;
 var page = document.body.getAttribute('data-page');
-var state = { codigo: '', tipo: 'general', numero: null, estado: '' };
+var state = { codigo: '', tipo: 'general', numero: null, estado: '', apartado: false };
 
 /* ---------- Código: normalizar y formatear ---------- */
 var CODE_RE = /^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$/;
@@ -80,7 +83,19 @@ function mock(url, b){
     else if (c === EVENTO) r = { status: 200, data: { valido: true, tipo: 'evento', numero: null } };
     else if (c.indexOf('AAAA') === 0) r = { status: 200, data: { valido: false, motivo: 'no_existe' } };
     else if (c.indexOf('UUUU') === 0) r = { status: 200, data: { valido: false, motivo: 'ya_usado' } };
-    else r = { status: 200, data: { valido: true, tipo: 'fundador', numero: '023' } };
+    else r = { status: 200, data: { valido: true, tipo: 'fundador', numero: '023', apartado: c.indexOf('QAPA') === 0 } };
+  } else if (url === API.apartar){
+    // QRED falla la primera vez y responde bien al reintentar; QUSA = ya_usado; QNXE = no_existe; QEVE = evento;
+    // QFXR = formato; QGRA = 413 muy_grande; Q5ZZ = error del servidor.
+    var ca = b.codigo;
+    if (ca.indexOf('QRED') === 0 && !mock.reintento){ mock.reintento = true; r = null; }
+    else if (ca.indexOf('QUSA') === 0) r = { status: 400, data: { ok: false, error: 'ya_usado' } };
+    else if (ca.indexOf('QNXE') === 0) r = { status: 400, data: { ok: false, error: 'no_existe' } };
+    else if (ca.indexOf('QEVE') === 0) r = { status: 400, data: { ok: false, error: 'evento' } };
+    else if (ca.indexOf('QFXR') === 0) r = { status: 400, data: { ok: false, error: 'formato' } };
+    else if (ca.indexOf('QGRA') === 0) r = { status: 413, data: { ok: false, error: 'muy_grande' } };
+    else if (ca.indexOf('Q5ZZ') === 0) r = { status: 500, data: {} };
+    else r = { status: 200, data: { ok: true, estado: 'apartado', numero: '023' } };
   } else {
     var tipo = !b.codigo ? 'general' : b.codigo === EVENTO ? 'evento' : 'fundador';
     var numero = tipo === 'fundador' ? '023' : null;
@@ -281,7 +296,7 @@ function canje(){
       busy(cBtn, false);
       var d = r.data || {};
       if (r.status === 200 && d.valido){
-        state.codigo = v; state.tipo = d.tipo; state.numero = d.numero || null;
+        state.codigo = v; state.tipo = d.tipo; state.numero = d.numero || null; state.apartado = !!d.apartado;
         input.classList.add('ok');
         setTimeout(toOk, reduce ? 0 : 350); return;
       }
@@ -304,7 +319,7 @@ function canje(){
   }
   $('#ir-registro').addEventListener('click', toForm);
   $('#otro-codigo').addEventListener('click', otro);
-  function otro(){ pre = ''; input.value = ''; input.classList.remove('ok'); state.codigo = ''; show('c', '#codigo'); }
+  function otro(){ pre = ''; pedido++; input.value = ''; input.classList.remove('ok'); state.codigo = ''; state.apartado = false; show('c', '#codigo'); }
   function toForm(){
     var el = $('[data-screen=e]');
     $('[data-chip]', el).textContent = state.codigo + (state.tipo === 'fundador' && state.numero ? ' · Fundador #' + state.numero : ' · Regalo de evento');
@@ -312,14 +327,38 @@ function canje(){
   }
   var form = $('#form-registro');
   initForm(form, toFin, toMenor);
-  // Menor: no pedimos datos. El código del video no viene en una tarjeta física, así que no le decimos que la guarde.
+  // Menor: no pedimos datos. Con tarjeta solo se guarda el código en /apartar; con el código del video no se llama a nada
+  // y no le decimos que guarde una tarjeta que no tiene.
+  var EVENTO_MENOR = 'Tu regalo está apartado. Canjéalo con el código STARTUPNOW cuando FUTURO abra.';
+  var APARTADO = 'Tu regalo queda apartado. Guarda tu tarjeta: la canjeas cuando FUTURO abra.';
+  var pedido = 0;
+  function textoMenor(txt, reintentar){
+    $('[data-menor]').textContent = txt;
+    $('[data-reintentar]').hidden = !reintentar;
+  }
+  function apartar(){
+    var este = ++pedido;
+    textoMenor('Apartando tu regalo…', false);
+    post(API.apartar, { codigo: state.codigo }).then(function(r){
+      if (este !== pedido) return;
+      var d = r.data || {};
+      if (r.status === 200 && d.ok){ state.apartado = true; textoMenor(APARTADO, false); }
+      else if (d.error === 'ya_usado') textoMenor(TXT.ya_usado, false);
+      else if (d.error === 'no_existe' || d.error === 'formato' || d.error === 'muy_grande') textoMenor(TXT.formato, false);
+      else if (d.error === 'evento') textoMenor(EVENTO_MENOR, false);
+      else textoMenor('Guarda tu tarjeta e inténtalo de nuevo.', true);
+    }).catch(function(){
+      if (este === pedido) textoMenor('Guarda tu tarjeta e inténtalo de nuevo.', true);
+    });
+  }
   function toMenor(){
-    $('[data-menor]').textContent = state.codigo === EVENTO
-      ? 'Tu regalo está apartado. Canjéalo con el código STARTUPNOW cuando FUTURO abra.'
-      : 'Guarda tu tarjeta: la canjeas cuando FUTURO abra.';
+    if (state.codigo === EVENTO) textoMenor(EVENTO_MENOR, false);
+    else if (state.apartado) textoMenor(APARTADO, false);
+    else apartar();
     show('m');
   }
-  $('[data-edad-otra]').addEventListener('click', function(){ resetEdad(form); show('e'); });
+  $('[data-reintentar]').addEventListener('click', apartar);
+  $('[data-edad-otra]').addEventListener('click', function(){ pedido++; resetEdad(form); show('e'); });
   clock($('[data-screen=m]'));
   $('[data-back]', form).addEventListener('click', function(){ showBack(form, false); otro(); });
   function toFin(){ var el = $('[data-screen=f]'); renderFin(el); show('f'); }
@@ -364,6 +403,10 @@ function pronto(){
   if (paso === 'f'){ state.estado = params.get('estado') || 'lista_de_espera'; renderFin($('[data-screen=f]')); show('f'); }
   else if (paso){ show('p', false); demoFill(form); }
 }
+
+// Instagram: el botón sale solo cuando hay link.
+var ig = (MOCK && params.get('ig')) || INSTAGRAM_URL;
+if (ig) Array.prototype.forEach.call(document.querySelectorAll('[data-instagram]'), function(a){ a.href = ig; a.hidden = false; });
 
 if (page === 'canje') canje();
 if (page === 'pronto') pronto();

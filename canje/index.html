@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FUTURO · Canjea tu código</title>
+<meta name="description" content="Canjea el código de tu tarjeta Fundador de FUTURO.">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#FBFBF8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBFBF8'/%3E%3Cpath d='M18 12h30v9H28v8h17v9H28v14H18z' fill='%23111827'/%3E%3Crect x='14' y='54' width='36' height='4' fill='%23FFD23F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Syne:wght@700;800&display=swap">
+<link rel="stylesheet" href="../assets/registro.css">
+</head>
+<body data-page="canje">
+<div class="aura" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="logo" href="../" aria-label="FUTURO, ir al inicio">FUTURO<i></i></a>
+  <button class="btn btn-ghost btn-sm" id="saltar" type="button">Saltar</button>
+</header>
+
+<main class="stage" id="main">
+
+  <!-- a -->
+  <section class="screen wide" data-screen="a" aria-live="polite">
+    <h1 class="big" data-focus>Tu futuro es <span class="u draw" id="u-imp">importante</span>.</h1>
+  </section>
+
+  <!-- b -->
+  <section class="screen wide" data-screen="b" aria-live="polite" hidden>
+    <h1 class="big" data-focus>Por eso te tenemos un <span class="accent">regalo</span>.</h1>
+  </section>
+
+  <!-- c -->
+  <section class="screen" data-screen="c" hidden>
+    <p class="label"><b>01</b> · Tu tarjeta</p>
+    <h1 class="mid" data-focus>Canjea tu código</h1>
+    <form id="form-codigo" novalidate>
+      <div class="field">
+        <label class="sr" for="codigo">Código de tu tarjeta</label>
+        <input class="code" id="codigo" name="codigo" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
+          maxlength="10" placeholder="ABCD-2345" aria-describedby="err-codigo hint-codigo">
+        <p class="hint" id="hint-codigo">Viene en tu tarjeta: 8 caracteres, como <span style="white-space:nowrap">ABCD-2345</span>.</p>
+        <p class="err" id="err-codigo" role="alert"></p>
+      </div>
+      <button class="btn btn-primary" type="submit">Canjear <span class="arr" aria-hidden="true">→</span></button>
+    </form>
+  </section>
+
+  <!-- d -->
+  <section class="screen" data-screen="d" hidden>
+    <svg class="tick" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="25"/><path d="M17 29l7 7 15-16"/></svg>
+    <h1 class="mid" data-focus>Código válido. <span class="accent" data-ok-line></span></h1>
+    <div class="meta">
+      <div><span>Tu código</span><strong data-ok-code></strong></div>
+      <div><span data-ok-tipo-l>Fundador</span><strong data-ok-tipo></strong></div>
+    </div>
+    <span class="pill" aria-hidden="true">Tarjeta Fundador</span>
+    <p class="lead">Falta un paso y queda listo.</p>
+    <div style="display:grid;gap:6px;justify-items:start">
+      <button class="btn btn-primary" id="ir-registro" type="button">Continuar <span class="arr" aria-hidden="true">→</span></button>
+      <button class="link" id="otro-codigo" type="button">Usar otro código</button>
+    </div>
+  </section>
+
+  <!-- e -->
+  <section class="screen" data-screen="e" hidden>
+    <p class="label"><b>02</b> · Tus datos</p>
+    <h1 class="mid" data-focus>Aparta tu regalo</h1>
+    <span class="chip" data-chip></span>
+    <form id="form-registro" novalidate>
+      <p class="err" data-form-err role="alert" tabindex="-1"></p>
+      <button class="link" type="button" data-back hidden>Usar otro código</button>
+      <fieldset aria-describedby="err-edad">
+        <legend class="q">¿Tienes 18 años o más?</legend>
+        <div class="seg">
+          <label><input type="radio" name="mayor" value="si"><span>Sí</span></label>
+          <label><input type="radio" name="mayor" value="no"><span>No</span></label>
+        </div>
+        <p class="err" id="err-edad"></p>
+      </fieldset>
+      <div class="adulto" data-adulto hidden>
+      <div class="field">
+        <label for="nombre">Tu nombre</label>
+        <input class="in" id="nombre" name="nombre" type="text" autocomplete="name" maxlength="80" required aria-describedby="err-nombre">
+        <p class="err" id="err-nombre"></p>
+      </div>
+      <div class="field">
+        <label for="correo">Tu correo</label>
+        <input class="in" id="correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" required aria-describedby="err-correo">
+        <p class="err" id="err-correo"></p>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="sitio">Sitio web</label><input id="sitio" name="sitio" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="field">
+        <label class="check"><input type="checkbox" name="aviso" aria-describedby="err-aviso"><span>Usamos tu nombre y correo solo para avisarte cuando FUTURO abra.</span></label>
+        <p class="err" id="err-aviso"></p>
+      </div>
+      <button class="btn btn-primary" type="submit">Apartar mi regalo <span class="arr" aria-hidden="true">→</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Menor: sin datos y sin llamar a /registro -->
+  <section class="screen" data-screen="m" hidden>
+    <p class="label"><b>Por ahora</b> · No guardamos nada</p>
+    <h1 class="mid long" data-focus data-menor></h1>
+    <div>
+      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
+      <p class="sr" data-clock-sr></p>
+      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
+        <div><span>Días</span><strong data-d>0</strong></div>
+        <div><span>Horas</span><strong data-h>00</strong></div>
+        <div><span>Min</span><strong data-m>00</strong></div>
+      </div>
+      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
+    </div>
+    <button class="link" type="button" data-edad-otra>Me equivoqué: tengo 18 años o más</button>
+    <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
+  </section>
+
+  <!-- f -->
+  <section class="screen" data-screen="f" hidden>
+    <p class="label"><b>03</b> · Listo</p>
+    <h1 class="mid" data-focus data-status></h1>
+    <p class="benefit" data-benefit hidden><span class="label"><b>Tu regalo Fundador</b></span><span data-benefit-txt></span></p>
+    <div>
+      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
+      <p class="sr" data-clock-sr></p>
+      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
+        <div><span>Días</span><strong data-d>0</strong></div>
+        <div><span>Horas</span><strong data-h>00</strong></div>
+        <div><span>Min</span><strong data-m>00</strong></div>
+      </div>
+      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
+    </div>
+    <p class="lead">Te avisamos por correo.</p>
+    <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
+  </section>
+
+</main>
+<p class="foot">Ninguna universidad paga por aparecer aquí.</p>
+<script src="../assets/registro.js"></script>
+</body>
+</html>

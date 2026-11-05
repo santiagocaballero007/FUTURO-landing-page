@@ -28,6 +28,10 @@ head_part, body_part = src[:cut], src[cut:]
 if DIST.exists():
     shutil.rmtree(DIST)
 shutil.copytree(ROOT / "assets", DIST / "assets")
+# Páginas aparte (documentos completos): canje de la tarjeta Fundador y lista de espera.
+for sub in ("canje", "pronto"):
+    if (ROOT / sub).is_dir():
+        shutil.copytree(ROOT / sub, DIST / sub)
 # Fuera de Artifact, las fuentes cargan sin bloquear el primer render (mejor FCP).
 font = head_part[head_part.index('<link rel="stylesheet"'):]
 font = font[: font.index(">") + 1]

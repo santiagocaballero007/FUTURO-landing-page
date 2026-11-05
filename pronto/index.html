@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FUTURO · Muy pronto</title>
+<meta name="description" content="FUTURO abre muy pronto. Déjanos tu correo y te avisamos cuando abra.">
+<meta property="og:title" content="FUTURO · Muy pronto">
+<meta property="og:description" content="No te decimos qué estudiar. Te enseñamos quién puedes llegar a ser. Te avisamos cuando abra.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:image" content="../assets/og.jpg">
+<meta name="theme-color" content="#FBFBF8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBFBF8'/%3E%3Cpath d='M18 12h30v9H28v8h17v9H28v14H18z' fill='%23111827'/%3E%3Crect x='14' y='54' width='36' height='4' fill='%23FFD23F'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Syne:wght@700;800&display=swap">
+<link rel="stylesheet" href="../assets/registro.css">
+</head>
+<body data-page="pronto">
+<div class="aura" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="logo" href="../" aria-label="FUTURO, ir al inicio">FUTURO<i></i></a>
+</header>
+
+<main class="stage" id="main">
+
+  <!-- Cuenta regresiva + lista -->
+  <section class="screen duo" data-screen="p">
+    <div class="duo-a">
+      <p class="label"><b>01</b> · Muy pronto</p>
+      <h1 class="mid" data-focus>Tu <span class="u">ruta</span> empieza aquí.</h1>
+      <div>
+        <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
+        <p class="sr" data-clock-sr></p>
+        <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
+          <div><span>Días</span><strong data-d>0</strong></div>
+          <div><span>Horas</span><strong data-h>00</strong></div>
+          <div><span>Min</span><strong data-m>00</strong></div>
+        </div>
+        <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
+      </div>
+      <p class="lead">Déjanos tu correo y te avisamos cuando abra.</p>
+    </div>
+
+    <form id="form-registro" class="duo-b" novalidate>
+      <p class="label"><b>02</b> · Entra a la lista</p>
+      <p class="err" data-form-err role="alert" tabindex="-1"></p>
+      <fieldset aria-describedby="err-edad">
+        <legend class="q">¿Tienes 18 años o más?</legend>
+        <div class="seg">
+          <label><input type="radio" name="mayor" value="si"><span>Sí</span></label>
+          <label><input type="radio" name="mayor" value="no"><span>No</span></label>
+        </div>
+        <p class="err" id="err-edad"></p>
+      </fieldset>
+      <div class="adulto" data-adulto hidden>
+      <div class="field">
+        <label for="nombre">Tu nombre</label>
+        <input class="in" id="nombre" name="nombre" type="text" autocomplete="name" maxlength="80" required aria-describedby="err-nombre">
+        <p class="err" id="err-nombre"></p>
+      </div>
+      <div class="field">
+        <label for="correo">Tu correo</label>
+        <input class="in" id="correo" name="correo" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="120" required aria-describedby="err-correo">
+        <p class="err" id="err-correo"></p>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="sitio">Sitio web</label><input id="sitio" name="sitio" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="field">
+        <label class="check"><input type="checkbox" name="aviso" aria-describedby="err-aviso"><span>Usamos tu nombre y correo solo para avisarte cuando FUTURO abra.</span></label>
+        <p class="err" id="err-aviso"></p>
+      </div>
+      <button class="btn btn-primary" type="submit">Avísame cuando abra <span class="arr" aria-hidden="true">→</span></button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Menor: sin datos y sin llamar a /registro -->
+  <section class="screen" data-screen="m" hidden>
+    <p class="label"><b>Por ahora</b> · No guardamos nada</p>
+    <h1 class="mid long" data-focus>Vuelve cuando FUTURO abra. No necesitamos tus datos por ahora.</h1>
+    <div>
+      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
+      <p class="sr" data-clock-sr></p>
+      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
+        <div><span>Días</span><strong data-d>0</strong></div>
+        <div><span>Horas</span><strong data-h>00</strong></div>
+        <div><span>Min</span><strong data-m>00</strong></div>
+      </div>
+      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
+    </div>
+    <button class="link" type="button" data-edad-otra>Me equivoqué: tengo 18 años o más</button>
+    <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
+  </section>
+
+  <!-- Listo -->
+  <section class="screen" data-screen="f" hidden>
+    <p class="label"><b>03</b> · Listo</p>
+    <h1 class="mid" data-focus data-status></h1>
+    <p class="benefit" data-benefit hidden><span class="label"><b>Tu regalo Fundador</b></span><span data-benefit-txt></span></p>
+    <div>
+      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
+      <p class="sr" data-clock-sr></p>
+      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
+        <div><span>Días</span><strong data-d>0</strong></div>
+        <div><span>Horas</span><strong data-h>00</strong></div>
+        <div><span>Min</span><strong data-m>00</strong></div>
+      </div>
+      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
+    </div>
+    <p class="lead">Te avisamos por correo.</p>
+    <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
+  </section>
+
+</main>
+<p class="foot">Ninguna universidad paga por aparecer aquí.</p>
+<script src="../assets/registro.js"></script>
+</body>
+</html>

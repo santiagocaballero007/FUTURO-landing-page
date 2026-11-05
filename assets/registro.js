@@ -10,8 +10,6 @@ var API = {
   registro: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/registro',
   apartar: 'https://santiagocaba2026.app.n8n.cloud/webhook/futuro/canje/apartar'
 };
-// Apertura de FUTURO en ISO con zona de CDMX, p. ej. '2026-12-01T10:00:00-06:00'. Vacío = "Muy pronto" (fecha por confirmar).
-var LANZAMIENTO = '';
 // Versión del texto de la casilla; n8n la pide y la guarda con el registro.
 var AVISO_VERSION = 'v1-2026-11';
 // Link de Instagram de FUTURO. Vacío = el botón no aparece.
@@ -37,8 +35,11 @@ var $ = function(s, r){ return (r || document).querySelector(s); };
 var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var params = new URLSearchParams(location.search);
 var MOCK = params.get('mock') === '1' && /^(localhost|127\.0\.0\.1)$/.test(location.hostname);   // nunca en la página publicada
-var lanzamiento = (MOCK && params.get('fecha')) || LANZAMIENTO;
 var page = document.body.getAttribute('data-page');
+// Fechas en assets/fechas.js: /canje/ usa la de quienes canjearon; /pronto/, la general.
+var FECHAS = window.FUTURO_FECHAS || {};
+var lanzamiento = (MOCK && params.get('fecha')) || (page === 'canje' ? FECHAS.LANZAMIENTO_CANJE : FECHAS.LANZAMIENTO_GENERAL) || '';
+var ABRE_EN = page === 'canje' ? 'Tu acceso abre en' : 'FUTURO abre en';
 var state = { codigo: '', tipo: 'general', numero: null, estado: '', apartado: false };
 
 /* ---------- Código: normalizar y formatear ---------- */
@@ -149,12 +150,20 @@ function clock(root){
       sr.textContent = 'FUTURO ya abrió.'; return false;
     }
     var m = Math.floor(left / 60000), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60); m = m % 60;
-    nums.hidden = false; soon.hidden = true; lab.textContent = 'FUTURO abre en';
+    nums.hidden = false; soon.hidden = true; lab.textContent = ABRE_EN;
     $('[data-d]', nums).textContent = d; $('[data-h]', nums).textContent = pad(h); $('[data-m]', nums).textContent = pad(m);
-    sr.textContent = 'FUTURO abre en ' + d + ' días, ' + h + ' horas y ' + m + ' minutos.';
+    sr.textContent = ABRE_EN + ' ' + d + ' días, ' + h + ' horas y ' + m + ' minutos.';
     return true;
   }
   if (tick()) setInterval(tick, 15000);
+}
+
+/* ---------- Textos con fecha: data-fecha-tpl="… {f} …" ---------- */
+if (lanzamiento){
+  var fechaLarga = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Mexico_City' }).format(new Date(lanzamiento));
+  Array.prototype.forEach.call(document.querySelectorAll('[data-fecha-tpl]'), function(el){
+    el.textContent = el.getAttribute('data-fecha-tpl').replace('{f}', fechaLarga);
+  });
 }
 
 /* ---------- Registro: primero la edad. Menores: sin datos y sin llamar a /registro. ---------- */

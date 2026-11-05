@@ -121,8 +121,8 @@ legend{padding:0;margin-bottom:10px}
 
 /* Cuenta regresiva */
 .clock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.clock div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:14px 14px 16px;display:grid;gap:6px;min-width:0}
-.clock strong{font:800 clamp(38px,11vw,64px)/.9 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.clock div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:12px 12px 14px;display:grid;gap:6px;min-width:0}
+.clock strong{font:800 clamp(26px,8.2vw,56px)/.95 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .soon{font:800 clamp(44px,12.4vw,88px)/.95 var(--display);letter-spacing:-.02em}
 .benefit{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:17px;line-height:1.45}
 .benefit .label{display:block;margin-bottom:6px}

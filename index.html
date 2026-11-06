@@ -126,11 +126,9 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:560px}
 .meta div:last-child{grid-column:1 / -1}
 @media (min-width:560px){.meta{grid-template-columns:repeat(3,minmax(0,1fr))}.meta div:last-child{grid-column:auto}}
-.cuenta{display:grid;gap:10px;max-width:560px}
-.count{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.count div{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:12px 12px 14px;display:grid;gap:6px;min-width:0}
-.count span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.count strong{font:800 clamp(26px,8.2vw,44px)/.95 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.abre{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:12px 14px 14px;display:grid;gap:6px;max-width:560px}
+.abre span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.abre strong{font:800 clamp(24px,7vw,36px)/1.05 var(--display);letter-spacing:-.015em;text-wrap:balance}
 .meta div{border:1px solid var(--line);border-radius:16px;background:var(--surface);padding:12px 14px;display:grid;gap:4px}
 .meta span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .meta strong{font:700 18px/1.15 var(--display)}
@@ -357,14 +355,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
         </h1>
       </div>
       <p class="lead fade" style="--i:4">Dos tests, tu top 3 de carreras con universidades y becas reales, y tu yo del 2045 contándote su día.</p>
-      <div class="cuenta fade" style="--i:5" data-cuenta hidden>
-        <p class="label"><b data-fecha-de="general" data-fecha-tpl="Abre el {f}">Abre muy pronto</b></p>
-        <p class="sr" data-cuenta-sr></p>
-        <div class="count" aria-hidden="true">
-          <div><span>Días</span><strong data-d>0</strong></div>
-          <div><span>Horas</span><strong data-h>00</strong></div>
-          <div><span>Min</span><strong data-m>00</strong></div>
-        </div>
+      <div class="abre fade" style="--i:5"><span>FUTURO abre</span><strong data-fecha-de="general" data-fecha-tpl="{F}">Muy pronto</strong></div>
       </div>
       <div class="cta-row fade" style="--i:5">
         <a class="btn btn-primary" data-pronto href="pronto/">Avísame cuando abra <span class="arr" aria-hidden="true">→</span></a>
@@ -625,7 +616,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       <h2 class="h2" id="h-faq"><span class="ln"><span>Lo que te</span></span><span class="ln"><span style="--i:1"><span class="u">preguntas</span>.</span></span></h2>
     </div>
     <div class="faq">
-      <details><summary>¿Cuándo abre?<span class="pm" aria-hidden="true"></span></summary><p class="a"><span data-fecha-de="general" data-fecha-tpl="El {f}.">Muy pronto.</span> <span data-fecha-de="canje" data-fecha-tpl="Si canjeaste tu regalo con una tarjeta o en el stand, el {f}.">Si canjeaste tu regalo, antes.</span> Déjanos tu correo y te avisamos.</p></details>
+      <details><summary>¿Cuándo abre?<span class="pm" aria-hidden="true"></span></summary><p class="a"><span data-fecha-de="general" data-fecha-tpl="{F}.">Muy pronto.</span> <span data-fecha-de="canje" data-fecha-tpl="Si canjeaste tu regalo con una tarjeta o en el stand, {f}.">Si canjeaste tu regalo, antes.</span> Déjanos tu correo y te avisamos.</p></details>
       <details><summary>¿Cuánto cuesta?<span class="pm" aria-hidden="true"></span></summary><p class="a">El precio está por confirmar. Lo publicamos aquí antes del lanzamiento.</p></details>
       <details><summary>¿Cuánto tiempo toma?<span class="pm" aria-hidden="true"></span></summary><p class="a">Unos 5 minutos: dos tests cortos y luego tus resultados.</p></details>
       <details><summary>¿Tengo que conectar Pinterest?<span class="pm" aria-hidden="true"></span></summary><p class="a">No. Es opcional. Si lo conectas, tus pines se leen en tu teléfono de forma anónima y solo usamos números agregados.</p></details>
@@ -643,7 +634,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
       <div class="inner">
         <p class="label"><b>Del 2026</b> al 2045</p>
         <h2 class="h2" id="h-final"><span class="ln"><span>Tu 2045</span></span><span class="ln"><span style="--i:1">está por</span></span><span class="ln"><span style="--i:2"><span class="u">empezar</span>.</span></span></h2>
-        <p class="lead fade" style="--i:2" data-fecha-de="general" data-fecha-tpl="FUTURO abre el {f}. Déjanos tu correo y te avisamos.">FUTURO abre muy pronto. Déjanos tu correo y te avisamos.</p>
+        <p class="lead fade" style="--i:2" data-fecha-de="general" data-fecha-tpl="FUTURO abre {f}. Déjanos tu correo y te avisamos.">FUTURO abre muy pronto. Déjanos tu correo y te avisamos.</p>
         <div class="cta-row fade" style="--i:3">
           <a class="btn btn-primary" data-pronto href="pronto/">Avísame cuando abra <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn btn-ghost" id="cta-hijo" href="https://wa.me/?text=Encontr%C3%A9%20esto%20para%20elegir%20carrera.%20FUTURO%20abre%20muy%20pronto%20y%20aqu%C3%AD%20puedes%20apuntarte%20para%20que%20te%20avisen%3A%20https%3A%2F%2Ffuturo2045.com%2Fpronto%2F%3Futm_source%3Dorganico%26utm_medium%3Dwhatsapp_papa" target="_blank" rel="noopener" aria-label="Mándaselo a tu hijo por WhatsApp">Mándaselo a tu hijo</a>
@@ -674,7 +665,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
   </div>
 </footer>
 
-<script src="assets/fechas.js"></script>
+<script src="assets/fechas.js?v=2"></script>
 <script>
 (function(){
   var d=document, root=d.documentElement;
@@ -760,25 +751,12 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
     });
   }
 
-  /* Fechas (assets/fechas.js): textos y cuenta regresiva de la portada. */
-  var F=window.FUTURO_FECHAS||{}, ISO={general:F.LANZAMIENTO_GENERAL,canje:F.LANZAMIENTO_CANJE};
-  function larga(iso){return new Intl.DateTimeFormat('es-MX',{day:'numeric',month:'long',year:'numeric',timeZone:'America/Mexico_City'}).format(new Date(iso))}
+  /* Fechas (assets/fechas.js): textos de la portada. {F} va con mayúscula inicial. */
+  var F=window.FUTURO_FECHAS||{}, ABRE={general:F.APERTURA_GENERAL,canje:F.APERTURA_CANJE};
   [].forEach.call(d.querySelectorAll('[data-fecha-tpl]'),function(el){
-    var iso=ISO[el.getAttribute('data-fecha-de')];
-    if(iso)el.textContent=el.getAttribute('data-fecha-tpl').replace('{f}',larga(iso));
+    var f=ABRE[el.getAttribute('data-fecha-de')];
+    if(f)el.textContent=el.getAttribute('data-fecha-tpl').replace('{f}',f).replace('{F}',f.charAt(0).toUpperCase()+f.slice(1));
   });
-  var cuenta=d.querySelector('[data-cuenta]'), meta=ISO.general?Date.parse(ISO.general):NaN;
-  function dos(n){return (n<10?'0':'')+n}
-  function tic(){
-    var left=meta-Date.now();
-    if(isNaN(meta)||left<=0){cuenta.hidden=true;return false}
-    var m=Math.floor(left/60000),dd=Math.floor(m/1440),h=Math.floor(m%1440/60);m=m%60;
-    cuenta.hidden=false;
-    cuenta.querySelector('[data-d]').textContent=dd;cuenta.querySelector('[data-h]').textContent=dos(h);cuenta.querySelector('[data-m]').textContent=dos(m);
-    cuenta.querySelector('[data-cuenta-sr]').textContent='FUTURO abre en '+dd+' días, '+h+' horas y '+m+' minutos.';
-    return true;
-  }
-  if(tic())setInterval(tic,15000);
 
   var hijo=d.getElementById('cta-hijo');
   if(hijo){
@@ -787,7 +765,7 @@ h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
     w.searchParams.set('utm_medium','whatsapp_papa');
     if(utm.utm_campaign)w.searchParams.set('utm_campaign',utm.utm_campaign);
     if(utm.utm_content)w.searchParams.set('utm_content',utm.utm_content);
-    hijo.href='https://wa.me/?text='+encodeURIComponent('Encontré esto para elegir carrera. FUTURO abre '+(ISO.general?'el '+larga(ISO.general):'muy pronto')+' y aquí puedes apuntarte para que te avisen: '+w);
+    hijo.href='https://wa.me/?text='+encodeURIComponent('Encontré esto para elegir carrera. FUTURO abre '+(ABRE.general||'muy pronto')+' y aquí puedes apuntarte para que te avisen: '+w);
   }
 
   /* Capítulos del video. */

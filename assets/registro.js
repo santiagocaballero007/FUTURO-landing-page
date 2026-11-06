@@ -40,8 +40,7 @@ var MOCK = params.get('mock') === '1' && /^(localhost|127\.0\.0\.1)$/.test(locat
 var page = document.body.getAttribute('data-page');
 // Fechas en assets/fechas.js: /canje/ usa la de quienes canjearon; /pronto/, la general.
 var FECHAS = window.FUTURO_FECHAS || {};
-var lanzamiento = (MOCK && params.get('fecha')) || (page === 'canje' ? FECHAS.LANZAMIENTO_CANJE : FECHAS.LANZAMIENTO_GENERAL) || '';
-var ABRE_EN = page === 'canje' ? 'Tu acceso abre en' : 'FUTURO abre en';
+var apertura = page === 'canje' ? FECHAS.APERTURA_CANJE : FECHAS.APERTURA_GENERAL;
 var state = { codigo: '', tipo: 'general', numero: null, estado: '', apartado: false };
 
 /* ---------- Código: normalizar y formatear ---------- */
@@ -136,30 +135,6 @@ function busy(btn, on, text){
 }
 function shake(el){ if (reduce) return; el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
 
-/* ---------- Cuenta regresiva ---------- */
-function pad(n){ return (n < 10 ? '0' : '') + n; }
-function clock(root){
-  var nums = $('[data-clock]', root), soon = $('[data-soon]', root), sr = $('[data-clock-sr]', root), lab = $('[data-clock-l]', root);
-  var target = lanzamiento ? Date.parse(lanzamiento) : NaN;
-  function tick(){
-    var left = target - Date.now();
-    if (isNaN(target)){
-      nums.hidden = true; soon.hidden = false; soon.textContent = 'Muy pronto'; lab.textContent = 'FUTURO abre';
-      sr.textContent = 'FUTURO abre muy pronto. La fecha está por confirmar.'; return false;
-    }
-    if (left <= 0){
-      nums.hidden = true; soon.hidden = false; soon.textContent = 'Ya abrió'; lab.textContent = 'FUTURO';
-      sr.textContent = 'FUTURO ya abrió.'; return false;
-    }
-    var m = Math.floor(left / 60000), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60); m = m % 60;
-    nums.hidden = false; soon.hidden = true; lab.textContent = ABRE_EN;
-    $('[data-d]', nums).textContent = d; $('[data-h]', nums).textContent = pad(h); $('[data-m]', nums).textContent = pad(m);
-    sr.textContent = ABRE_EN + ' ' + d + ' días, ' + h + ' horas y ' + m + ' minutos.';
-    return true;
-  }
-  if (tick()) setInterval(tick, 15000);
-}
-
 /* ---------- De qué anuncio viene el registro: solo va a nuestro n8n, sin pixel ni plataformas de anuncios ---------- */
 function utmDeLaUrl(){
   var utm = {};
@@ -170,11 +145,10 @@ function utmDeLaUrl(){
   return utm;
 }
 
-/* ---------- Textos con fecha: data-fecha-tpl="… {f} …" ---------- */
-if (lanzamiento){
-  var fechaLarga = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Mexico_City' }).format(new Date(lanzamiento));
+/* ---------- Textos con fecha: data-fecha-tpl="… {f} …"; {F} va con mayúscula inicial ---------- */
+if (apertura){
   Array.prototype.forEach.call(document.querySelectorAll('[data-fecha-tpl]'), function(el){
-    el.textContent = el.getAttribute('data-fecha-tpl').replace('{f}', fechaLarga);
+    el.textContent = el.getAttribute('data-fecha-tpl').replace('{f}', apertura).replace('{F}', apertura.charAt(0).toUpperCase() + apertura.slice(1));
   });
 }
 
@@ -382,10 +356,8 @@ function canje(){
   }
   $('[data-reintentar]').addEventListener('click', apartar);
   $('[data-edad-otra]').addEventListener('click', function(){ pedido++; resetEdad(form); show('e'); });
-  clock($('[data-screen=m]'));
   $('[data-back]', form).addEventListener('click', function(){ showBack(form, false); otro(); });
   function toFin(){ var el = $('[data-screen=f]'); renderFin(el); show('f'); }
-  clock($('[data-screen=f]'));
 
   // Saltos directos para capturas en modo simulado: ?mock=1&paso=a…f
   var paso = MOCK && params.get('paso');
@@ -416,10 +388,9 @@ function canje(){
   }, reduce ? 1800 : 2700));
 }
 
-/* ---------- /pronto/: cuenta regresiva + lista de espera sin código ---------- */
+/* ---------- /pronto/: lista de espera sin código ---------- */
 function pronto(){
   var form = $('#form-registro');
-  clock($('[data-screen=p]')); clock($('[data-screen=f]')); clock($('[data-screen=m]'));
   initForm(form, function(){ renderFin($('[data-screen=f]')); show('f'); }, function(){ show('m'); });
   $('[data-edad-otra]').addEventListener('click', function(){ resetEdad(form); show('p'); });
   var paso = MOCK && params.get('paso');

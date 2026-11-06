@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&family=Syne:wght@700;800&display=swap">
-<link rel="stylesheet" href="../assets/registro.css">
+<link rel="stylesheet" href="../assets/registro.css?v=2">
 </head>
 <body data-page="pronto">
 <div class="aura" aria-hidden="true"></div>
@@ -31,22 +31,13 @@
 
 <main class="stage" id="main">
 
-  <!-- Cuenta regresiva + lista -->
+  <!-- Cuándo abre + lista -->
   <section class="screen duo" data-screen="p">
     <div class="duo-a">
       <p class="label"><b>01</b> · Muy pronto</p>
       <h1 class="mid" data-focus>Tu <span class="u">ruta</span> empieza aquí.</h1>
-      <div>
-        <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
-        <p class="sr" data-clock-sr></p>
-        <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
-          <div><span>Días</span><strong data-d>0</strong></div>
-          <div><span>Horas</span><strong data-h>00</strong></div>
-          <div><span>Min</span><strong data-m>00</strong></div>
-        </div>
-        <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
-      </div>
-      <p class="lead" data-fecha-tpl="FUTURO abre el {f}. Déjanos tu correo y te avisamos.">Déjanos tu correo y te avisamos cuando abra.</p>
+    <div class="abre"><span>FUTURO abre</span><strong data-fecha-tpl="{F}">Muy pronto</strong></div>
+      <p class="lead">Déjanos tu correo y te avisamos cuando abra.</p>
     </div>
 
     <form id="form-registro" class="duo-b" novalidate>
@@ -85,17 +76,7 @@
   <section class="screen" data-screen="m" hidden>
     <p class="label"><b>Por ahora</b> · No guardamos nada</p>
     <h1 class="mid long" data-focus>Vuelve cuando FUTURO abra. No necesitamos tus datos por ahora.</h1>
-    <div>
-      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
-      <p class="sr" data-clock-sr></p>
-      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
-        <div><span>Días</span><strong data-d>0</strong></div>
-        <div><span>Horas</span><strong data-h>00</strong></div>
-        <div><span>Min</span><strong data-m>00</strong></div>
-      </div>
-      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
-    </div>
-    <p class="lead" data-fecha-tpl="FUTURO abre el {f}.">FUTURO abre muy pronto.</p>
+    <div class="abre"><span>FUTURO abre</span><strong data-fecha-tpl="{F}">Muy pronto</strong></div>
     <button class="link" type="button" data-edad-otra>Me equivoqué: tengo 18 años o más</button>
     <a class="btn btn-ghost" data-instagram target="_blank" rel="noopener" hidden>Síguenos en Instagram</a>
     <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
@@ -106,24 +87,15 @@
     <p class="label"><b>03</b> · Listo</p>
     <h1 class="mid" data-focus data-status></h1>
     <p class="benefit" data-benefit hidden><span class="label"><b>Tu regalo Fundador</b></span><span data-benefit-txt></span></p>
-    <div>
-      <p class="label" aria-hidden="true" data-clock-l>FUTURO abre</p>
-      <p class="sr" data-clock-sr></p>
-      <div class="clock" data-clock aria-hidden="true" hidden style="margin-top:10px">
-        <div><span>Días</span><strong data-d>0</strong></div>
-        <div><span>Horas</span><strong data-h>00</strong></div>
-        <div><span>Min</span><strong data-m>00</strong></div>
-      </div>
-      <p class="soon" data-soon aria-hidden="true" style="margin-top:6px">Muy pronto</p>
-    </div>
-    <p class="lead" data-fecha-tpl="FUTURO abre el {f}. Te avisamos por correo.">Te avisamos por correo.</p>
+    <div class="abre"><span>FUTURO abre</span><strong data-fecha-tpl="{F}">Muy pronto</strong></div>
+    <p class="lead">Te avisamos por correo.</p>
     <a class="btn btn-ghost" data-instagram target="_blank" rel="noopener" hidden>Síguenos en Instagram</a>
     <a class="btn btn-ghost" href="../">Conoce FUTURO</a>
   </section>
 
 </main>
 <p class="foot">Ninguna universidad paga por aparecer aquí.</p>
-<script src="../assets/fechas.js"></script>
-<script src="../assets/registro.js?v=3"></script>
+<script src="../assets/fechas.js?v=2"></script>
+<script src="../assets/registro.js?v=4"></script>
 </body>
 </html>

@@ -61,7 +61,7 @@ h1,h2{margin:0;font-family:var(--display);text-wrap:balance}
   .screen.duo{max-width:1120px;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:64px;align-items:start}
   .duo-b{padding:28px;border:1px solid var(--line);border-radius:24px;background:var(--surface)}
 }
-.mid.long{font-size:clamp(26px,6.6vw,40px);line-height:1.1}
+.mid.long{font-size:clamp(22px,6.6vw,40px);line-height:1.1}
 @keyframes enter{from{opacity:0;transform:translateY(18px)}}
 .big{font-weight:800;font-size:clamp(36px,9.6vw,80px);line-height:1.02;letter-spacing:-.02em}
 .mid{font-weight:800;font-size:clamp(30px,8vw,52px);line-height:1.04;letter-spacing:-.015em}
@@ -111,7 +111,7 @@ legend{padding:0;margin-bottom:10px}
 .meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .meta.stack{grid-template-columns:1fr}
 .meta div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:14px 16px;display:grid;gap:4px;min-width:0}
-.meta span,.clock span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.meta span,.abre span{font:600 11px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .meta strong{font:700 clamp(18px,5vw,22px)/1.15 var(--display);overflow-wrap:anywhere}
 .pill{justify-self:start;display:inline-block;transform:rotate(-3deg);padding:8px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font:700 13px/1.2 var(--display);letter-spacing:.06em;text-transform:uppercase}
 .tick{width:56px;height:56px}
@@ -120,11 +120,9 @@ legend{padding:0;margin-bottom:10px}
 @keyframes tick{to{stroke-dashoffset:0}}
 .chip{justify-self:start;display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-size:14px;font-weight:600}
 
-/* Cuenta regresiva */
-.clock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.clock div{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:12px 12px 14px;display:grid;gap:6px;min-width:0}
-.clock strong{font:800 clamp(26px,8.2vw,56px)/.95 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.soon{font:800 clamp(44px,12.4vw,88px)/.95 var(--display);letter-spacing:-.02em}
+/* Cuándo abre */
+.abre{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:14px 16px 16px;display:grid;gap:6px}
+.abre strong{font:800 clamp(24px,7vw,40px)/1.05 var(--display);letter-spacing:-.015em;text-wrap:balance}
 .benefit{padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:17px;line-height:1.45}
 .benefit .label{display:block;margin-bottom:6px}
 

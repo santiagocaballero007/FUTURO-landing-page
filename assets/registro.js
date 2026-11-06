@@ -14,6 +14,8 @@ var API = {
 var AVISO_VERSION = 'v1-2026-11';
 // Link de Instagram de FUTURO. Vacío = el botón no aparece.
 var INSTAGRAM_URL = '';
+// Link al aviso de privacidad de /pronto/. Vacío = no sale; el texto lo da Santiago.
+var AVISO_URL = '';
 var BENEFICIO = 'Entras antes que todos y te llevas un extra de lanzamiento.';
 
 var TXT = {
@@ -158,6 +160,16 @@ function clock(root){
   if (tick()) setInterval(tick, 15000);
 }
 
+/* ---------- De qué anuncio viene el registro: solo va a nuestro n8n, sin pixel ni plataformas de anuncios ---------- */
+function utmDeLaUrl(){
+  var utm = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function(k){
+    var v = (params.get(k) || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 100);
+    if (v) utm[k] = v;
+  });
+  return utm;
+}
+
 /* ---------- Textos con fecha: data-fecha-tpl="… {f} …" ---------- */
 if (lanzamiento){
   var fechaLarga = new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Mexico_City' }).format(new Date(lanzamiento));
@@ -213,6 +225,7 @@ function initForm(form, onDone, onMenor){
       codigo: state.codigo, nombre: nombre.value.trim(), correo: correo.value.trim().toLowerCase(),
       mayor_de_18: true, aviso_version: AVISO_VERSION, sitio: form.sitio.value
     };
+    if (page === 'pronto'){ var utm = utmDeLaUrl(); Object.keys(utm).forEach(function(k){ body[k] = utm[k]; }); }
     busy(btn, true, 'Enviando…');
     post(API.registro, body).then(function(r){
       busy(btn, false);
@@ -413,6 +426,10 @@ function pronto(){
   if (paso === 'f'){ state.estado = params.get('estado') || 'lista_de_espera'; renderFin($('[data-screen=f]')); show('f'); }
   else if (paso){ show('p', false); demoFill(form); }
 }
+
+// Aviso de privacidad: la liga sale solo cuando hay link.
+var aviso = (MOCK && params.get('aviso')) || AVISO_URL;
+if (aviso) Array.prototype.forEach.call(document.querySelectorAll('[data-aviso]'), function(a){ a.href = aviso; a.hidden = false; });
 
 // Instagram: el botón sale solo cuando hay link.
 var ig = (MOCK && params.get('ig')) || INSTAGRAM_URL;

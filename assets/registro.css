@@ -104,6 +104,7 @@ legend{padding:0;margin-bottom:10px}
 .adulto.enter{animation:enter .4s var(--ease) both}
 .check{display:flex;gap:12px;align-items:flex-start;min-height:44px;cursor:pointer;font-size:15px;line-height:1.5}
 .check input{flex:none;width:24px;height:24px;margin:0;accent-color:var(--accent)}
+.aviso-liga{display:inline-block;min-height:24px;line-height:24px;text-underline-offset:3px}
 .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 
 /* Tarjetas de metadatos */
